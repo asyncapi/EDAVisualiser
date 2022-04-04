@@ -1,0 +1,22 @@
+# dependencies
+/**/node_modules
+
+# testing
+/**/coverage
+/**/cypress
+
+# production
+/**/lib
+/**/build
+/**/dist
+/library/browser
+/library/styles
+/library/LICENSE
+/library/README.md
+
+# misc
+.DS_Store
+npm-debug.log*
+lerna-debug.log*
+/**/*.tgz
+/.idea/
