@@ -1,10 +1,18 @@
 import React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { Markdown } from '../Markdown';
-import {ApplicationNodeProps} from '../../types';
+import { ApplicationNodeProps } from '../../types';
 
 export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
-  data: {description, title, version, license, externalDocs, servers, defaultContentType}
+  data: {
+    description,
+    title,
+    version,
+    license,
+    externalDocs,
+    servers,
+    defaultContentType,
+  },
 }) => {
   return (
     <div className="bg-white shadow sm:rounded-lg border-2 border-gray-300 flex">
@@ -27,16 +35,16 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
           </div>
 
           <div className="flex space-x-4">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">{title}</h3>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              {title}
+            </h3>
             <span className="block leading-6 px-1.5  rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
               v{version}
             </span>
           </div>
           {description && (
             <div className="mt-2 text-sm text-gray-500 max-w-xl">
-              <Markdown>
-                {description}
-              </Markdown>
+              <Markdown>{description}</Markdown>
             </div>
           )}
           {defaultContentType && (
@@ -51,9 +59,11 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
 
         {servers.length > 0 && (
           <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Servers</h3>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              Servers
+            </h3>
             <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 mt-4">
-              {servers.map((server) => {
+              {servers.map(server => {
                 return (
                   <div key={server.name} className="sm:col-span-1">
                     <dt className="text-sm text-gray-500 font-bold flex">
@@ -65,11 +75,11 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
                       </span>
                     </dt>
                     <dd className="mt-1 text-xs text-gray-900">
-                      <Markdown>
-                        {server.description}
-                      </Markdown>
+                      <Markdown>{server.description}</Markdown>
                     </dd>
-                    <dd className="mt-1 text-xs text-gray-900">url: {server.url}</dd>
+                    <dd className="mt-1 text-xs text-gray-900">
+                      url: {server.url}
+                    </dd>
                   </div>
                 );
               })}
@@ -105,7 +115,11 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
           Out
         </span>
       </div>
-      <Handle type="source" position={Position.Right} style={{ background: 'gray' }} />
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ background: 'gray' }}
+      />
     </div>
   );
 };

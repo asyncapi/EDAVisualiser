@@ -1,0 +1,11 @@
+{
+  "lerna": "3.15.0",
+  "version": "0.2.0",
+  "npmClient": "npm",
+  "packages": ["library"],
+  "command": {
+    "publish": {
+      "message": "Bump version to %s"
+    }
+  }
+}

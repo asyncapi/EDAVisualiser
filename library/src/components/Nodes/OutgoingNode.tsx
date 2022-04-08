@@ -16,27 +16,27 @@ export const OutgoingNode: React.FunctionComponent<OutgoingNodeProps> = ({
           position={Position.Left}
           style={{ background: 'orange' }}
         />
-        <span className="block leading-6  text-gray-900 text-xs font-light uppercase">You can publish</span>
+        <span className="block leading-6  text-gray-900 text-xs font-light uppercase">
+          You can publish
+        </span>
         <div>
-          <h3 className="text-lg leading-6 font-medium text-gray-900">{channel}</h3>
+          <h3 className="text-lg leading-6 font-medium text-gray-900">
+            {channel}
+          </h3>
           {description && (
             <div className="mt-1 max-w-2xl text-sm text-gray-500">
-              <Markdown>
-                {description}
-              </Markdown>
+              <Markdown>{description}</Markdown>
             </div>
           )}
         </div>
         <hr />
         <div>
-          <span className="font-semibold block">
-            Messages
-          </span>
+          <span className="font-semibold block">Messages</span>
           <span className="text-xs block mb-3 italic mt-1 text-gray-500">
             Payloads you can publish using this channel
           </span>
           <div className="grid grid-cols-3 gap-4 px-2">
-            {messages.map((message) => {
+            {messages.map(message => {
               const theme = getBackgroundColor(message.title);
 
               return (

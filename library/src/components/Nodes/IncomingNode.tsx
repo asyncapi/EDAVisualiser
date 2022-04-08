@@ -5,7 +5,9 @@ import getBackgroundColor from '../../helpers/random-background-color';
 import { Markdown } from '../Markdown';
 import { IncomingNodeProps } from '../../types';
 
-export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({ data: {channel, description, messages} }) => {
+export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({
+  data: { channel, description, messages },
+}) => {
   return (
     <div className="bg-white shadow sm:rounded-lg border-2 border-yellow-400">
       <Handle
@@ -18,40 +20,34 @@ export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({ data:
           <span className="block leading-6  text-gray-900 uppercase text-xs font-light">
             You can subscribe
           </span>
-         
         </div>
         <div>
-          <h3 className="text-lg leading-6 font-medium text-gray-900">{channel}</h3>
+          <h3 className="text-lg leading-6 font-medium text-gray-900">
+            {channel}
+          </h3>
           {description && (
             <div className="mt-1 max-w-2xl text-sm text-gray-500">
-              <Markdown>
-                {description}
-              </Markdown>
+              <Markdown>{description}</Markdown>
             </div>
           )}
         </div>
         <hr />
         <div>
-          <span className="font-semibold block">
-            Messages
-          </span>
+          <span className="font-semibold block">Messages</span>
           <span className="text-xs block mb-3 italic mt-1 text-gray-500">
             Payloads to expect from listening to this channel
           </span>
           <div className="grid grid-cols-3 gap-4 px-2">
-            {messages.map((message) => {
+            {messages.map(message => {
               return (
                 <div
                   key={message.title}
                   className=" border-gray-200 border-l-8 border rounded-lg  space-x-2 flex justify-between"
-                  style={
-                    {
-                      borderColor: getBackgroundColor(message.title),
-                    }
-                  }
+                  style={{
+                    borderColor: getBackgroundColor(message.title),
+                  }}
                 >
                   <div className="flex space-x-2">
-                   
                     <div
                       className="p-2 font-semibold text-xs text-gray-800"
                       style={{ color: getBackgroundColor(message.title) }}
@@ -65,7 +61,11 @@ export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({ data:
           </div>
         </div>
       </div>
-      <Handle type="source" position={Position.Left} style={{ background: 'orange' }} />
+      <Handle
+        type="source"
+        position={Position.Left}
+        style={{ background: 'orange' }}
+      />
     </div>
   );
 };

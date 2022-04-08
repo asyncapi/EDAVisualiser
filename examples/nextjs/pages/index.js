@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import { ApplicationView, Application } from '@lagoni/edavisualiser/lib/esm'
+import Head from 'next/head';
+import { ApplicationView, Application } from '@lagoni/edavisualiser';
 
 export default function Home() {
   return (
@@ -14,23 +14,27 @@ export default function Home() {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
         <ApplicationView>
-          <Application id='string'
-          defaultContentType='string'
-          description='string'
-          title='string'
-          version='string'
-          license={{
-            name:'string',
-            url:'string'
-          }}
-          externalDocs='string'
-          servers={[{
-              name:'string',
-              url:'string',
-              description:'string',
-              protocol:'string',
-              protocolVersion:'string'
-          }]}></Application>
+          <Application
+            id="string"
+            defaultContentType="string"
+            description="string"
+            title="string"
+            version="string"
+            license={{
+              name: 'string',
+              url: 'string',
+            }}
+            externalDocs="string"
+            servers={[
+              {
+                name: 'string',
+                url: 'string',
+                description: 'string',
+                protocol: 'string',
+                protocolVersion: 'string',
+              },
+            ]}
+          ></Application>
         </ApplicationView>
       </main>
 
@@ -40,8 +44,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
+          Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
         </a>
       </footer>
 
@@ -191,5 +194,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }

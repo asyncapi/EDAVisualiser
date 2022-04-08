@@ -1,108 +1,99 @@
 {
-  "name": "@lagoni/edavisualiser",
-  "version": "0.0.0",
-  "private": false,
-  "description": "A React flow library for visualizing event driven architectures.",
+  "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonaslagoni/edavisualiser"
+    "url": "git+https://github.com/jonaslagoni/edavisualiser.git"
   },
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/jonaslagoni/edavisualiser/issues"
   },
-  "keywords": [
-    "asyncapi",
-    "react",
-    "reactjs",
-    "eda"
-  ],
-  "tags": [
-    "asyncapi",
-    "react",
-    "reactjs",
-    "eda"
-  ],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "types": "lib/types/index.d.ts",
-  "files": [
-    "/lib",
-    "/browser",
-    "/styles",
-    "./README.md",
-    "./LICENSE"
-  ],
-  "sideEffects": [
-    "./styles/default.css",
-    "./styles/default.min.css"
-  ],
   "scripts": {
-    "start": "tsc -p tsconfig.esm.json --watch",
-    "lint": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose ",
-    "build:dev": "npm run build:esm && npm run build:types && npm run build:styles",
-    "build:prod": "npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:standalone && npm run build:types && npm run build:styles",
-    "build:esm": "tsc -p tsconfig.esm.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:umd": "cross-env BUILD_MODE=umd webpack --colors",
-    "build:standalone": "cross-env BUILD_MODE=standalone webpack --colors",
-    "build:types": "tsc -p tsconfig.types.json",
-    "build:styles": "npm run build:styles:dev && npm run build:styles:prod",
-    "build:styles:dev": "cross-env NODE_ENV=production postcss src/styles/default.css -o styles/default.css --verbose",
-    "build:styles:prod": "cross-env NODE_ENV=production MINIFY_STYLES=true postcss src/styles/default.css -o styles/default.min.css --verbose",
-    "test": "npm run test:unit",
-    "test:unit": "jest --detectOpenHandles",
-    "test:unit:watch": "jest --detectOpenHandles --watch",
-    "prepare": "npm run build:dev",
-    "prepublishOnly": "npm run prepack",
-    "prepack": "npm run build:prod && cp ../README.md ./README.md && cp ../LICENSE ./LICENSE",
-    "postpack": "rm -rf ./README.md && rm -rf ./LICENSE",
-    "get:name": "echo $npm_package_name",
-    "get:version": "echo $npm_package_version"
-  },
-  "dependencies": {
-    "highlight.js": "^10.7.2",
-    "isomorphic-dompurify": "^0.13.0",
-    "marked": "^4.0.10",
-    "react-flow-renderer": "9.6.9"
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
+    "start": "lerna exec --parallel -- npm run start",
+    "test": "cd library && npm test",
+    "build": "npm run build:library",
+    "build:library": "cd library && npm run prepare",
+    "lint": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose && prettier --check \"**/*.{ts,tsx,js,jsx,json,html,css,yaml}\"",
+    "lint:fix": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose --fix && prettier --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "conflict-check": "tslint-config-prettier-check ./tslint.json",
+    "markdownlint": "markdownlint **/*.md",
+    "release": "semantic-release",
+    "postinstall": "npm run bootstrap",
+    "prepublishOnly": "npm run build",
+    "gen-readme-toc": "markdown-toc -i README.md",
+    "generate:assets": "npm run gen-readme-toc",
+    "bump:lib:version": "cd library && npm --no-git-tag-version --allow-same-version version $VERSION",
+    "bump:version": "npm run bump:lib:version",
+    "get:name": "cd library && npm run get:name",
+    "get:version": "cd library && npm run get:version"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^5.9.0",
-    "@tailwindcss/typography": "^0.4.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/dompurify": "^2.0.4",
-    "@types/highlight.js": "^10.1.0",
-    "@types/jest": "^26.0.23",
-    "@types/marked": "^4.0.1",
-    "@types/node": "^12.7.2",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.8.0",
-    "autoprefixer": "^10.2.5",
-    "cross-env": "^7.0.3",
-    "cssnano": "^4.1.11",
-    "cypress": "^7.4.0",
-    "jest": "^26.0.0",
-    "postcss": "^8.2.10",
-    "postcss-cli": "^8.3.1",
-    "postcss-import": "^14.0.2",
-    "postcss-scopify": "^0.1.9",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "tailwindcss": "^2.1.1",
-    "ts-jest": "^26.4.1",
-    "ts-loader": "^8.1.0",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/github": "^7.2.3",
+    "@semantic-release/npm": "^7.0.3",
+    "@semantic-release/release-notes-generator": "^9.0.2",
+    "concurrently": "^6.0.1",
+    "conventional-changelog-conventionalcommits": "^4.4.0",
+    "husky": "^2.4.1",
+    "lerna": "^3.22.1",
+    "lint-staged": "^8.2.1",
+    "markdown-toc": "^1.2.0",
+    "markdownlint-cli": "^0.17.0",
+    "prettier": "^1.18.2",
+    "semantic-release": "^17.4.3",
     "tslib": "^1.10.0",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.1.1",
-    "webpack": "^4.41.2",
-    "webpack-bundle-analyzer": "^4.4.0",
-    "webpack-cli": "^3.3.12"
+    "typescript": "^4.0.0"
   },
-  "publishConfig": {
-    "access": "public"
+  "lint-staged": {
+    "linters": {
+      "**/*.{ts,tsx,js,jsx,json,css,html,yaml}": [
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "package.json",
+      "package-lock.json"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "release": {
+    "branches": [
+      "master",
+      {
+        "name": "next",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "library"
+        }
+      ],
+      "@semantic-release/github"
+    ]
   }
 }

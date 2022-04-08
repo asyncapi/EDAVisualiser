@@ -5,7 +5,7 @@ import ApplicationNode from './ApplicationNode';
 const nodeTypes = {
   outgoingNode: OutgoingNode,
   incomingNode: IncomingNode,
-  applicationNode: ApplicationNode
+  applicationNode: ApplicationNode,
 };
 
 export default nodeTypes;
