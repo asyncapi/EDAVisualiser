@@ -56,11 +56,9 @@
     "marked": "^4.0.10",
     "react-flow-renderer": "9.6.9"
   },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
   "devDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "@cypress/webpack-preprocessor": "^5.9.0",
     "@tailwindcss/typography": "^0.4.0",
     "@types/dompurify": "^2.0.4",
