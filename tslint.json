@@ -1,8 +1,6 @@
 {
   "defaultSeverity": "error",
-  "plugins": [
-    "react-hooks"
-  ],
+  "plugins": ["react-hooks"],
   "extends": [
     "tslint:recommended",
     "tslint-react",
@@ -20,7 +18,6 @@
     "curly": true,
     "jsx-no-lambda": false,
     "prefer-const": true,
-    "arrow-return-shorthand": [true, "multiline"],
     "no-duplicate-super": true,
     "no-duplicate-imports": true,
     "no-duplicate-switch-case": true,
@@ -32,11 +29,20 @@
     "radix": true,
     "react-hooks-nesting": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn" 
+    "react-hooks/exhaustive-deps": "warn",
+    "interface-over-type-literal": false,
+    "arrow-return-shorthand": false,
+    "array-type": false,
+    "no-empty-interface": false
   },
   "jsRules": {},
   "linterOptions": {
-    "exclude": ["node_modules/**/*"]
+    "exclude": [
+      "node_modules/**/*",
+      "library/browser/**",
+      "library/*.config.js",
+      "library/*.config.js"
+    ]
   },
   "ban-types": [
     true,
