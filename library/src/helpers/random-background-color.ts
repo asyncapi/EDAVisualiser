@@ -1,5 +1,4 @@
 export default (stringInput: string) => {
-  //@ts-ignore
   const stringUniqueHash = [...stringInput].reduce((acc, char) => {
     return char.charCodeAt(0) + ((acc << 5) - acc);
   }, 0);

@@ -23,6 +23,7 @@
     "noUnusedLocals": true,
     "suppressImplicitAnyIndexErrors": true,
     "resolveJsonModule": true,
+    "downlevelIteration": true
   },
   "include": ["./library", "./playground"],
   "exclude": ["*/node_modules/**/*", "*/lib/**/*", "examples"]

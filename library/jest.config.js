@@ -13,4 +13,6 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
+  setupFiles: ['<rootDir>/../test-shim.js', '<rootDir>/../test-setup.js'],
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
 };

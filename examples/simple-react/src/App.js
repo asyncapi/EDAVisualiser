@@ -1,32 +1,40 @@
-import logo from './logo.svg';
-import {ApplicationView, Application} from '@lagoni/edavisualiser'
+import { ApplicationView, Application, Outgoing } from '@lagoni/edavisualiser';
+import '@lagoni/edavisualiser/styles/default.css';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <ApplicationView>
-          <Application id='string'
-          defaultContentType='string'
-          description='string'
-          title='string'
-          version='string'
+      <ApplicationView>
+        <Application
+          id="string"
+          defaultContentType="string"
+          description="string"
+          title="string"
+          version="string"
           license={{
-            name:'string',
-            url:'string'
+            name: 'string',
+            url: 'string',
           }}
-          externalDocs='string'
-          servers={[{
-              name:'string',
-              url:'string',
-              description:'string',
-              protocol:'string',
-              protocolVersion:'string'
-          }]}></Application>
-        </ApplicationView>
-      </header>
+          externalDocs="string"
+          servers={[
+            {
+              name: 'string',
+              url: 'string',
+              description: 'string',
+              protocol: 'string',
+              protocolVersion: 'string',
+            },
+          ]}
+        >
+          <Outgoing
+            channel="Test/test/"
+            description="Test description"
+            id="testid"
+            messages={[{ title: 'test' }]}
+          ></Outgoing>
+        </Application>
+      </ApplicationView>
     </div>
   );
 }

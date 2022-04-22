@@ -17,6 +17,7 @@ export const Incoming: React.FunctionComponent<IncomingProps> = props => {
     id: nodeData.id,
     type: 'incomingNode',
     data: nodeData,
+    position: { x: 0, y: 0 },
   };
 
   props.internal?.addElementCallback(applicationNode);

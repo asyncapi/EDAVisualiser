@@ -13,7 +13,7 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
 }) => {
   const [elements, setElements] = useState<FlowElement[]>([]);
 
-  const addElementsCallback = (element: FlowElement) => {
+  const addElementCallback = (element: FlowElement) => {
     setElements([...elements, element]);
   };
 
@@ -21,7 +21,7 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
     // Checking isValidElement is the safe way and avoids a typescript
     // error too.
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { internal: { addElementsCallback } });
+      return React.cloneElement(child, { internal: { addElementCallback } });
     }
     return child;
   });

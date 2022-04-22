@@ -9,6 +9,12 @@ type InternalApplicationProps = {
 };
 
 type ApplicationProps = ApplicationNodeData & InternalApplicationProps;
+
+/**
+ * The Application component is a single instance of grouped outgoing and incoming channels.
+ *
+ * What you define as an instance can be application, grouped or single server less function, etc.
+ */
 export const Application: React.FunctionComponent<ApplicationProps> = props => {
   const nodeData = { ...props };
   delete nodeData.children;
@@ -17,15 +23,15 @@ export const Application: React.FunctionComponent<ApplicationProps> = props => {
     id: nodeData.id,
     type: 'applicationNode',
     data: nodeData,
+    position: { x: 0, y: 0 },
   };
+
   props.internal?.addElementCallback(applicationNode);
 
   const childrenWithProps = React.Children.map(props.children, child => {
-    // Checking isValidElement is the safe way and avoids a typescript
-    // error too.
     if (React.isValidElement(child)) {
-      let connectorNode;
-      if (Outgoing.isPrototypeOf(child.type)) {
+      let connectorNode: any;
+      if (child.type === Outgoing) {
         connectorNode = {
           id: `outgoing-${props.id}-${child.props.id}`,
           type: 'smoothstep',
@@ -50,5 +56,5 @@ export const Application: React.FunctionComponent<ApplicationProps> = props => {
     return child;
   });
 
-  return <div>{childrenWithProps}</div>;
+  return <div key={nodeData.id}>{childrenWithProps}</div>;
 };

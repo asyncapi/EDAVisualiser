@@ -1,7 +1,6 @@
 import React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import getBackgroundColor from '../../helpers/random-background-color';
-// @ts-ignore
 import { Markdown } from '../Markdown';
 import { OutgoingNodeProps } from '../../types';
 

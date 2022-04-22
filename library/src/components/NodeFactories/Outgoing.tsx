@@ -16,8 +16,8 @@ export const Outgoing: React.FunctionComponent<OutgoingProps> = props => {
     id: nodeData.id,
     type: 'outgoingNode',
     data: nodeData,
+    position: { x: 0, y: 0 },
   };
   props.internal?.addElementCallback(outgoingNode);
-
   return null;
 };
