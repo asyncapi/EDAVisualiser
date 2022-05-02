@@ -63,7 +63,7 @@ export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({
       </div>
       <Handle
         type="source"
-        position={Position.Left}
+        position={Position.Right}
         style={{ background: 'orange' }}
       />
     </div>
