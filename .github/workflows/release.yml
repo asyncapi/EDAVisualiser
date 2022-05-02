@@ -22,7 +22,7 @@ jobs:
         run: npm run lint
       - name: Get version from package.json before release step
         id: initversion
-        run: echo "::set-output name=version::$(npm run get-version --silent)"
+        run: echo "::set-output name=version::$(npm run get:version --silent)"
       - name: Release to NPM and GitHub
         id: release
         env:
@@ -35,7 +35,7 @@ jobs:
         run: npm run release
       - name: Get version from package.json after release step
         id: extractver
-        run: echo "::set-output name=version::$(npm run get-version --silent)"
+        run: echo "::set-output name=version::$(npm run get:version --silent)"
       - name: Create Pull Request with updated package files
         if: steps.initversion.outputs.version != steps.extractver.outputs.version
         uses: peter-evans/create-pull-request@v2.4.4
