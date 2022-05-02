@@ -1,5 +1,5 @@
 import React from 'react';
-import { OutgoingNodeData } from '../../types';
+import { OutgoingNodeData } from '../../../types';
 
 type InternalOutgoingProps = {
   internal?: {
@@ -15,7 +15,7 @@ export const Outgoing: React.FunctionComponent<OutgoingProps> = props => {
   const outgoingNode = {
     id: nodeData.id,
     type: 'outgoingNode',
-    data: nodeData,
+    data: { ...nodeData, nodeWidth: 650, nodeHeight: 380 },
     position: { x: 0, y: 0 },
   };
   props.internal?.addElementCallback(outgoingNode);

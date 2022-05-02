@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ApplicationView, AsyncAPIApplication } from '@lagoni/edavisualiser';
+import {
+  ApplicationView,
+  AsyncAPIApplication,
+  ColumnLayout,
+} from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
 import './App.css';
 import '@asyncapi/parser/dist/bundle';
@@ -237,7 +241,11 @@ function Asyncapi() {
   let something;
   if (data !== undefined) {
     something = (
-      <ApplicationView>
+      <ApplicationView
+        layout={elements => {
+          return <ColumnLayout elementsToRender={elements} />;
+        }}
+      >
         <AsyncAPIApplication document={data}></AsyncAPIApplication>
       </ApplicationView>
     );

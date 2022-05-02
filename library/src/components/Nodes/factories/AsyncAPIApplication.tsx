@@ -4,7 +4,7 @@ import {
   ApplicationNodeData,
   ApplicationServerData,
   MessageData,
-} from '../../types';
+} from '../../../types';
 import { Application } from './Application';
 import { Outgoing } from './Outgoing';
 import { AsyncAPIDocument } from '@asyncapi/parser';

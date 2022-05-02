@@ -1,5 +1,5 @@
 import React from 'react';
-import { IncomingNodeData } from '../../types';
+import { IncomingNodeData } from '../../../types';
 
 type InternalIncomingProps = {
   internal?: {
@@ -9,14 +9,13 @@ type InternalIncomingProps = {
 
 type IncomingProps = IncomingNodeData & InternalIncomingProps;
 export const Incoming: React.FunctionComponent<IncomingProps> = props => {
-  const tempNode = { ...props };
-  delete tempNode.children;
-  delete tempNode.internal;
-  const nodeData: IncomingNodeData = tempNode;
+  const nodeData = { ...props };
+  delete nodeData.children;
+  delete nodeData.internal;
   const applicationNode = {
     id: nodeData.id,
     type: 'incomingNode',
-    data: nodeData,
+    data: { ...nodeData, nodeWidth: 650, nodeHeight: 380 },
     position: { x: 0, y: 0 },
   };
 

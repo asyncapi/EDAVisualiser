@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApplicationNodeData } from '../../types';
+import { ApplicationNodeData } from '../../../types';
 import { Outgoing } from './Outgoing';
 
 type InternalApplicationProps = {
@@ -22,7 +22,7 @@ export const Application: React.FunctionComponent<ApplicationProps> = props => {
   const applicationNode = {
     id: nodeData.id,
     type: 'applicationNode',
-    data: nodeData,
+    data: { ...nodeData, nodeWidth: 700, nodeHeight: 300 },
     position: { x: 0, y: 0 },
   };
 

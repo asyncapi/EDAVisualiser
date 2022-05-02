@@ -4,7 +4,7 @@ import ReactFlow, {
   BackgroundVariant,
   FlowElement,
 } from 'react-flow-renderer';
-import nodeTypes from '../components/Nodes';
+import nodeTypes from '../components/nodes';
 
 type SystemViewProps = {};
 
