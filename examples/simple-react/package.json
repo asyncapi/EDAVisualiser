@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@lagoni/edavisualiser": "0.0.0",
+    "@asyncapi/parser": "^1.15.0",
+    "@lagoni/edavisualiser": "0.4.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-scripts": "5.0.1",
