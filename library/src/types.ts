@@ -1,9 +1,5 @@
 import { FlowElement } from 'react-flow-renderer';
 
-export interface SizeData {
-  nodeWidth: number;
-  nodeHeight: number;
-}
 export interface ApplicationLicenseData {
   name: string;
   url: string;

@@ -43,7 +43,7 @@ function calculateLayout(
   }
 
   let activeXPosition = 0;
-  for (const [columnId, columnElements] of Object.entries(columns)) {
+  for (const columnElements of Object.values(columns)) {
     let activeYPosition = 0;
     const columnMaxWidth = Math.max.apply(
       Math,
