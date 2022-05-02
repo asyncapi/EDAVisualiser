@@ -2,10 +2,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonaslagoni/edavisualiser.git"
+    "url": "git+https://github.com/jonaslagoni/EDAVisualiser.git"
   },
   "bugs": {
-    "url": "https://github.com/jonaslagoni/edavisualiser/issues"
+    "url": "https://github.com/jonaslagoni/EDAVisualiser/issues"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
