@@ -1,4 +1,9 @@
-import { ApplicationView, Application, Outgoing, Incoming } from '@lagoni/edavisualiser';
+import {
+  ApplicationView,
+  Application,
+  Outgoing,
+  Incoming,
+} from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
 import './App.css';
 

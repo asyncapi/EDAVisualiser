@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { ApplicationView, AsyncAPIApplication } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
 import './App.css';
 import '@asyncapi/parser/dist/bundle';
 const parser = window['AsyncAPIParser'];
-function Asyncapi() {  
+function Asyncapi() {
   const [data, setData] = useState(undefined);
   useEffect(() => {
     // declare the async data fetching function
@@ -227,29 +227,24 @@ function Asyncapi() {
 
       // set state with the result
       setData(doc);
-    }
+    };
 
     // call the function
     fetchData()
       // make sure to catch any error
-      .catch(console.error);;
-  }, [])
+      .catch(console.error);
+  }, []);
   let something;
-  if(data !== undefined) {
-    something = <ApplicationView>
-        <AsyncAPIApplication
-        document={data}
-      >
-      </AsyncAPIApplication>
-    </ApplicationView>
+  if (data !== undefined) {
+    something = (
+      <ApplicationView>
+        <AsyncAPIApplication document={data}></AsyncAPIApplication>
+      </ApplicationView>
+    );
   } else {
-    something = <h1>Not loaded</h1>
+    something = <h1>Not loaded</h1>;
   }
-  return (
-    <div className="App">
-      {something}
-    </div>
-  );
+  return <div className="App">{something}</div>;
 }
 
 export default Asyncapi;

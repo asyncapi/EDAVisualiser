@@ -1,4 +1,3 @@
-
 export interface ApplicationLicenseData {
   name: string;
   url: string;
