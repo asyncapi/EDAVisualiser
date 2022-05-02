@@ -39,7 +39,6 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
         });
       incomingNodes.push(
         <Incoming
-          internal={{ addElementCallback: props.internal?.addElementCallback }}
           channel={channelPath}
           description={channel.description() || 'No description'}
           id={channelId}
@@ -56,7 +55,6 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
         });
       outgoingNodes.push(
         <Outgoing
-          internal={{ addElementCallback: props.internal?.addElementCallback }}
           channel={channelPath}
           description={channel.description() || 'No description'}
           id={channelId}

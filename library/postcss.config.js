@@ -3,7 +3,7 @@ module.exports = {
     require('tailwindcss'),
     require('autoprefixer'),
     require('postcss-import'),
-    require('postcss-scopify')('.aui-root'),
+    require('postcss-scopify')('.edavisualiser-root'),
     process.env.NODE_ENV === 'production' &&
       process.env.MINIFY_STYLES === 'true' &&
       require('cssnano')({

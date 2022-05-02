@@ -8,5 +8,5 @@ export const Markdown: React.FunctionComponent = ({ children }) => {
     return <>{children}</>;
   }
 
-  return <div className="prose max-w-none text-sm">children</div>;
+  return <div className="prose max-w-none text-sm">{children}</div>;
 };

@@ -32,7 +32,10 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
   });
 
   return (
-    <div className="bg-gray-800" style={{ width: '100%', height: '100%' }}>
+    <section
+      className="bg-gray-800 edavisualiser-root"
+      style={{ width: '100%', height: '100%' }}
+    >
       {childrenWithProps}
       <ReactFlow nodeTypes={nodeTypes} elements={elements} minZoom={0.1}>
         <Background
@@ -48,6 +51,6 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
         <span className="text-gray-200">|</span>
         <span className="font-light capitalize">Test</span>
       </div>
-    </div>
+    </section>
   );
 };
