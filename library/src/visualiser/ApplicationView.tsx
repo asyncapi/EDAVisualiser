@@ -4,6 +4,7 @@ import ReactFlow, {
   BackgroundVariant,
   FlowElement,
 } from 'react-flow-renderer';
+import { ColumnLayout } from '../components/layouts';
 import nodeTypes from '../components/nodes';
 import { LayoutProps } from '../types';
 
@@ -13,7 +14,9 @@ interface ApplicationViewProps {
 
 export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
   children,
-  layout,
+  layout = elements => {
+    return <ColumnLayout elementsToRender={elements} />;
+  },
 }) => {
   const [loaded, setLoaded] = useState(false);
   const [elements, setElements] = useState<FlowElement[]>([]);

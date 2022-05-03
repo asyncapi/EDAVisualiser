@@ -241,12 +241,8 @@ function Asyncapi() {
   let something;
   if (data !== undefined) {
     something = (
-      <ApplicationView
-        layout={elements => {
-          return <ColumnLayout elementsToRender={elements} />;
-        }}
-      >
-        <AsyncAPIApplication document={data}></AsyncAPIApplication>
+      <ApplicationView>
+        <AsyncAPIApplication document={data} />
       </ApplicationView>
     );
   } else {

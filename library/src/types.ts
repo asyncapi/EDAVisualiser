@@ -1,5 +1,9 @@
 import { FlowElement } from 'react-flow-renderer';
-
+export const FLOW_TYPES = {
+  APPLICATION: 'application',
+  INCOMING: 'incomingNode',
+  OUTGOING: 'outgoingNode',
+};
 export interface ApplicationLicenseData {
   name: string;
   url: string;

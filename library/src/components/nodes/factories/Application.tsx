@@ -1,5 +1,6 @@
 import React from 'react';
 import { ApplicationNodeData } from '../../../types';
+import { Incoming } from './Incoming';
 import { Outgoing } from './Outgoing';
 
 type InternalApplicationProps = {
@@ -39,7 +40,7 @@ export const Application: React.FunctionComponent<ApplicationProps> = props => {
           source: props.id,
           target: child.props.id,
         };
-      } else {
+      } else if (child.type === Incoming) {
         connectorNode = {
           id: `incoming-${props.id}-${child.props.id}`,
           type: 'smoothstep',

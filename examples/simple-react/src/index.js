@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Asyncapi from './Asyncapi';
+import SystemView from './SystemView';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Asyncapi />
+    <SystemView />
   </React.StrictMode>,
   document.getElementById('root'),
 );
