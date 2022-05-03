@@ -14,8 +14,8 @@ interface ApplicationViewProps {
 
 export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
   children,
-  layout = elements => {
-    return <ColumnLayout elementsToRender={elements} />;
+  layout = elementsToLayout => {
+    return <ColumnLayout elementsToRender={elementsToLayout} />;
   },
 }) => {
   const [loaded, setLoaded] = useState(false);

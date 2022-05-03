@@ -14,8 +14,8 @@ interface SystemViewProps {
 
 export const SystemView: React.FunctionComponent<SystemViewProps> = ({
   children,
-  layout = elements => {
-    return <ColumnLayout elementsToRender={elements} />;
+  layout = elementsToLayout => {
+    return <ColumnLayout elementsToRender={elementsToLayout} />;
   },
 }) => {
   const [loaded, setLoaded] = useState(false);
