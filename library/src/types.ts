@@ -13,17 +13,17 @@ export interface ApplicationServerData {
   url: string;
   description: string;
   protocol: string;
-  protocolVersion: string;
+  protocolVersion?: string;
 }
 export interface ApplicationNodeData {
   id: string;
-  defaultContentType: string;
-  description: string;
+  defaultContentType?: string;
+  description?: string;
   title: string;
   version: string;
-  license: ApplicationLicenseData;
-  externalDocs: string;
-  servers: ApplicationServerData[];
+  license?: ApplicationLicenseData;
+  externalDocs?: string;
+  servers?: ApplicationServerData[];
 }
 
 export interface ApplicationNodeProps {
@@ -34,16 +34,16 @@ export interface MessageData {
 }
 export interface IncomingNodeData {
   id: string;
-  description: string;
+  description?: string;
   channel: string;
-  messages: MessageData[];
+  messages?: MessageData[];
 }
 export interface IncomingNodeProps {
   data: IncomingNodeData;
 }
 export interface OutgoingNodeData {
   id: string;
-  description: string;
+  description?: string;
   channel: string;
   messages: MessageData[];
 }

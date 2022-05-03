@@ -29,36 +29,38 @@ export const OutgoingNode: React.FunctionComponent<OutgoingNodeProps> = ({
           )}
         </div>
         <hr />
-        <div>
-          <span className="font-semibold block">Messages</span>
-          <span className="text-xs block mb-3 italic mt-1 text-gray-500">
-            Payloads you can publish using this channel
-          </span>
-          <div className="grid grid-cols-3 gap-4 px-2">
-            {messages.map(message => {
-              const theme = getBackgroundColor(message.title);
+        {messages && messages.length > 0 && (
+          <div>
+            <span className="font-semibold block">Messages</span>
+            <span className="text-xs block mb-3 italic mt-1 text-gray-500">
+              Payloads you can publish using this channel
+            </span>
+            <div className="grid grid-cols-3 gap-4 px-2">
+              {messages.map(message => {
+                const theme = getBackgroundColor(message.title);
 
-              return (
-                <div
-                  key={message.title}
-                  className=" p-2 border-gray-200 border border-l-8 rounded-lg space-x-2 flex justify-between"
-                  style={{
-                    borderColor: theme,
-                  }}
-                >
-                  <div className="flex space-x-2">
-                    <div
-                      className="font-semibold text-gray-800 text-xs"
-                      style={{ color: theme }}
-                    >
-                      {message.title}
+                return (
+                  <div
+                    key={message.title}
+                    className=" p-2 border-gray-200 border border-l-8 rounded-lg space-x-2 flex justify-between"
+                    style={{
+                      borderColor: theme,
+                    }}
+                  >
+                    <div className="flex space-x-2">
+                      <div
+                        className="font-semibold text-gray-800 text-xs"
+                        style={{ color: theme }}
+                      >
+                        {message.title}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
         <Handle
           type="source"
           position={Position.Right}

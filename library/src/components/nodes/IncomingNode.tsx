@@ -31,34 +31,36 @@ export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({
           )}
         </div>
         <hr />
-        <div>
-          <span className="font-semibold block">Messages</span>
-          <span className="text-xs block mb-3 italic mt-1 text-gray-500">
-            Payloads to expect from listening to this channel
-          </span>
-          <div className="grid grid-cols-3 gap-4 px-2">
-            {messages.map(message => {
-              return (
-                <div
-                  key={message.title}
-                  className=" border-gray-200 border-l-8 border rounded-lg  space-x-2 flex justify-between"
-                  style={{
-                    borderColor: getBackgroundColor(message.title),
-                  }}
-                >
-                  <div className="flex space-x-2">
-                    <div
-                      className="p-2 font-semibold text-xs text-gray-800"
-                      style={{ color: getBackgroundColor(message.title) }}
-                    >
-                      {message.title}
+        {messages && messages.length > 0 && (
+          <div>
+            <span className="font-semibold block">Messages</span>
+            <span className="text-xs block mb-3 italic mt-1 text-gray-500">
+              Payloads to expect from listening to this channel
+            </span>
+            <div className="grid grid-cols-3 gap-4 px-2">
+              {messages.map(message => {
+                return (
+                  <div
+                    key={message.title}
+                    className=" border-gray-200 border-l-8 border rounded-lg  space-x-2 flex justify-between"
+                    style={{
+                      borderColor: getBackgroundColor(message.title),
+                    }}
+                  >
+                    <div className="flex space-x-2">
+                      <div
+                        className="p-2 font-semibold text-xs text-gray-800"
+                        style={{ color: getBackgroundColor(message.title) }}
+                      >
+                        {message.title}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <Handle
         type="source"

@@ -57,7 +57,7 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
           )}
         </div>
 
-        {servers.length > 0 && (
+        {servers && servers.length > 0 && (
           <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               Servers
@@ -98,7 +98,7 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
               {externalDocs}
             </a>
           )}
-          {license.name && (
+          {license && (
             <a
               href={license.url}
               target="_blank"
