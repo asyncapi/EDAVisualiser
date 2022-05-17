@@ -1,22 +1,19 @@
 import React from 'react';
 import {
   ApplicationLicenseData,
-  ApplicationNodeData,
   ApplicationServerData,
+  InternalProps,
   MessageData,
-} from '../../../types';
+} from '../../types';
 import { Application } from './Application';
 import { Outgoing } from './Outgoing';
 import { AsyncAPIDocument } from '@asyncapi/parser';
 import { Incoming } from './Incoming';
-type InternalApplicationProps = {
-  internal?: {
-    addElementCallback?: any;
-  };
+type AsyncapiApplicationProps = {
   document: AsyncAPIDocument;
 };
 
-type ApplicationProps = ApplicationNodeData & InternalApplicationProps;
+type ApplicationProps = AsyncapiApplicationProps & InternalProps;
 
 /**
  * The Application component is a single instance of grouped outgoing and incoming channels.
@@ -88,7 +85,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
   });
   return (
     <Application
-      internal={{ addElementCallback: props.internal?.addElementCallback }}
+      internal={props.internal}
       defaultContentType={props.document.defaultContentType() || 'Undefined'}
       description={props.document.info().description() || 'No description'}
       id={props.document.info().title()}

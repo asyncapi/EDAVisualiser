@@ -4,9 +4,14 @@ import ReactFlow, {
   BackgroundVariant,
   FlowElement,
 } from 'react-flow-renderer';
-import { ColumnLayout } from '../components/layouts';
-import nodeTypes from '../components/nodes';
-import { LayoutProps } from '../types';
+import { ColumnLayout } from '../../components/layouts';
+import nodeTypes from '../../components/react-flow-renderer-nodes';
+import {
+  ApplicationNodeData,
+  IncomingNodeData,
+  LayoutProps,
+  OutgoingNodeData,
+} from '../../types';
 
 interface ApplicationViewProps {
   layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
@@ -21,8 +26,48 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
   const [loaded, setLoaded] = useState(false);
   const [elements, setElements] = useState<FlowElement[]>([]);
   const tempElements: FlowElement[] = [];
-  const addElementCallback = (element: FlowElement) => {
-    tempElements.push(element);
+  let lastApplicationId: string;
+  const addApplicationCallback = (node: ApplicationNodeData) => {
+    const applicationReactFlowRendererNode = {
+      id: node.id,
+      type: 'applicationNode',
+      data: { ...node, nodeWidth: 700, nodeHeight: 300 },
+      position: { x: 0, y: 0 },
+    };
+    lastApplicationId = node.id;
+    tempElements.push(applicationReactFlowRendererNode);
+  };
+  const addIncomingCallback = (node: IncomingNodeData) => {
+    const incomingReactFlowRendererNode = {
+      id: node.id,
+      type: 'incomingNode',
+      data: { ...node, nodeWidth: 650, nodeHeight: 380 },
+      position: { x: 0, y: 0 },
+    };
+    const connectionEdge = {
+      id: `incoming-${lastApplicationId}-${node.id}`,
+      type: 'smoothstep',
+      style: { stroke: '#7ee3be', strokeWidth: 4 },
+      target: lastApplicationId,
+      source: node.id,
+    };
+    tempElements.push(incomingReactFlowRendererNode, connectionEdge);
+  };
+  const addOutgoingCallback = (node: OutgoingNodeData) => {
+    const outgoingNode = {
+      id: node.id,
+      type: 'outgoingNode',
+      data: { ...node, nodeWidth: 650, nodeHeight: 380 },
+      position: { x: 0, y: 0 },
+    };
+    const connectionEdge = {
+      id: `outgoing-${lastApplicationId}-${node.id}`,
+      type: 'smoothstep',
+      style: { stroke: 'orange', strokeWidth: 4 },
+      source: lastApplicationId,
+      target: node.id,
+    };
+    tempElements.push(outgoingNode, connectionEdge);
   };
 
   useEffect(() => {
@@ -38,7 +83,13 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
     // Checking isValidElement is the safe way and avoids a typescript
     // error too.
     if (React.isValidElement(child)) {
-      const props: any = { internal: { addElementCallback } };
+      const props: any = {
+        internal: {
+          addIncomingCallback,
+          addApplicationCallback,
+          addOutgoingCallback,
+        },
+      };
       return React.cloneElement(child, props);
     }
     return child;

@@ -1,9 +1,13 @@
 import { FlowElement } from 'react-flow-renderer';
-export const FLOW_TYPES = {
-  APPLICATION: 'application',
-  INCOMING: 'incomingNode',
-  OUTGOING: 'outgoingNode',
+
+export type InternalProps = {
+  internal?: {
+    addApplicationCallback: (node: ApplicationNodeData) => void;
+    addIncomingCallback: (node: IncomingNodeData) => void;
+    addOutgoingCallback: (node: OutgoingNodeData) => void;
+  };
 };
+
 export interface ApplicationLicenseData {
   name: string;
   url: string;
@@ -37,6 +41,7 @@ export interface IncomingNodeData {
   description?: string;
   channel: string;
   messages?: MessageData[];
+  forApplication?: string;
 }
 export interface IncomingNodeProps {
   data: IncomingNodeData;
@@ -46,6 +51,7 @@ export interface OutgoingNodeData {
   description?: string;
   channel: string;
   messages: MessageData[];
+  forApplication?: string;
 }
 export interface OutgoingNodeProps {
   data: OutgoingNodeData;
