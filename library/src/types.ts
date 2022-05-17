@@ -28,6 +28,9 @@ export interface ApplicationNodeData {
   license?: ApplicationLicenseData;
   externalDocs?: string;
   servers?: ApplicationServerData[];
+
+  //functions
+  hideHandlers?: boolean;
 }
 
 export interface ApplicationNodeProps {

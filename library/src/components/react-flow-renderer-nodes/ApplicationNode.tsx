@@ -12,20 +12,20 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
     externalDocs,
     servers,
     defaultContentType,
+    hideHandlers,
   },
 }) => {
   return (
     <div className="bg-white shadow sm:rounded-lg border-2 border-gray-300 flex">
-      <Handle
-        type="target"
-        position={Position.Left}
-        style={{ background: 'gray' }}
-      />
-      <div className="flex justify-center items-center border-r border-gray-200">
-        <span className="block transform -rotate-90 uppercase text-green-500 w-full font-bold tracking-widest px-2 ">
-          In
-        </span>
-      </div>
+      <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
+      {hideHandlers !== true && (
+        <div className="flex justify-center items-center border-r border-gray-200">
+          <span className="block transform -rotate-90 uppercase text-green-500 w-full font-bold tracking-widest px-2 ">
+            In
+          </span>
+        </div>
+      )}
+
       <div>
         <div className="px-4 py-5 sm:px-6">
           <div className="flex justify-between mb-4">
@@ -110,16 +110,15 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
           )}
         </div>
       </div>
-      <div className="flex justify-center items-center  border-l border-gray-2">
-        <span className="block transform -rotate-90 uppercase text-yellow-500 w-full font-bold tracking-widest">
-          Out
-        </span>
-      </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        style={{ background: 'gray' }}
-      />
+      {hideHandlers !== true && (
+        <div className="flex justify-center items-center border-l border-gray-2">
+          <span className="block transform -rotate-90 uppercase text-yellow-500 w-full font-bold tracking-widest">
+            Out
+          </span>
+        </div>
+      )}
+
+      <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
     </div>
   );
 };
