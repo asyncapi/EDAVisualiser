@@ -94,8 +94,8 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
       const props: any = {
         internal: {
           addApplicationCallback,
-          addIncomingCallback: addIncomingCallback,
-          addOutgoingCallback: addOutgoingCallback,
+          addIncomingCallback,
+          addOutgoingCallback,
         },
       };
       return React.cloneElement(child, props);
