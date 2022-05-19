@@ -69,6 +69,8 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
       tempElements.push(externalOutgoing, externalIncoming);
     }
   };
+  const leadApplicationIncomingChannels: string[] = [];
+  const leadApplicationOutgoingChannels: string[] = [];
   const addIncomingCallback = (node: IncomingNodeData) => {
     const appId = node.forApplication || '';
     if (leadApplication.id === appId) {
@@ -85,16 +87,20 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
         target: appId,
         source: node.id,
       };
+      leadApplicationIncomingChannels.push(node.id);
       tempElements.push(incomingReactFlowRendererNode, connectionEdge);
     } else {
-      const connectionEdge = {
-        id: `incoming-${appId}-${node.id}`,
-        type: 'default',
-        style: { stroke: '#7ee3be', strokeWidth: 4 },
-        target: `incoming_external_${appId}`,
-        source: `${leadApplication.id}${node.channel}`,
-      };
-      tempElements.push(connectionEdge);
+      const source = `${leadApplication.id}${node.channel}`;
+      if (leadApplicationOutgoingChannels.includes(source)) {
+        const connectionEdge = {
+          id: `incoming-${appId}-${node.id}`,
+          type: 'default',
+          style: { stroke: '#7ee3be', strokeWidth: 4 },
+          target: `incoming_external_${appId}`,
+          source,
+        };
+        tempElements.push(connectionEdge);
+      }
     }
   };
   const addOutgoingCallback = (node: OutgoingNodeData) => {
@@ -113,16 +119,20 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
         source: appId,
         target: node.id,
       };
+      leadApplicationOutgoingChannels.push(node.id);
       tempElements.push(outgoingNode, connectionEdge);
     } else {
-      const connectionEdge = {
-        id: `outgoing-${appId}-${node.id}`,
-        type: 'default',
-        style: { stroke: 'orange', strokeWidth: 4 },
-        source: `outgoing_external_${appId}`,
-        target: `${leadApplication.id}${node.channel}`,
-      };
-      tempElements.push(connectionEdge);
+      const target = `${leadApplication.id}${node.channel}`;
+      if (leadApplicationIncomingChannels.includes(target)) {
+        const connectionEdge = {
+          id: `outgoing-${appId}-${node.id}`,
+          type: 'default',
+          style: { stroke: 'orange', strokeWidth: 4 },
+          source: `outgoing_external_${appId}`,
+          target,
+        };
+        tempElements.push(connectionEdge);
+      }
     }
   };
 
