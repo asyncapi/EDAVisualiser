@@ -1,10 +1,5 @@
 import React, { ReactElement } from 'react';
-import {
-  ApplicationLicenseData,
-  ApplicationServerData,
-  InternalProps,
-  MessageData,
-} from '../../types';
+import { ApplicationServerData, InternalProps, MessageData } from '../../types';
 import { Application } from './Application';
 import { Outgoing } from './Outgoing';
 import { AsyncAPIDocument } from '@asyncapi/parser';
@@ -91,7 +86,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
     <Application
       topExtended={props.topExtended}
       internal={props.internal}
-      defaultContentType={props.document.defaultContentType() || 'Undefined'}
+      defaultContentType={props.document.defaultContentType() || undefined}
       description={props.document.info().description() || 'No description'}
       id={props.document.info().title()}
       license={license}

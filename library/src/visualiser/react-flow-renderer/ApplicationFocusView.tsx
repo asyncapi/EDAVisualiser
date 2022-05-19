@@ -2,16 +2,22 @@ import React, { useEffect, useState } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
+  EdgeTypesType,
   FlowElement,
 } from 'react-flow-renderer';
 import { ColumnLayout } from '../../components/layouts';
 import nodeTypes from '../../components/react-flow-renderer-nodes';
+import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
 import {
   ApplicationNodeData,
   IncomingNodeData,
   LayoutProps,
   OutgoingNodeData,
 } from '../../types';
+
+const edgeTypes: EdgeTypesType = {
+  floating: FloatingEdge,
+};
 
 interface ApplicationFocusViewProps {
   layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
@@ -73,10 +79,10 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
     } else {
       const connectionEdge = {
         id: `incoming-${appId}-${node.id}`,
-        type: 'smoothstep',
+        type: 'default',
         style: { stroke: '#7ee3be', strokeWidth: 4 },
-        source: `incoming_external_${appId}`,
-        target: `${leadApplication.id}${node.channel}`,
+        target: `incoming_external_${appId}`,
+        source: `${leadApplication.id}${node.channel}`,
       };
       tempElements.push(connectionEdge);
     }
@@ -101,7 +107,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
     } else {
       const connectionEdge = {
         id: `outgoing-${appId}-${node.id}`,
-        type: 'smoothstep',
+        type: 'default',
         style: { stroke: 'orange', strokeWidth: 4 },
         source: `outgoing_external_${appId}`,
         target: `${leadApplication.id}${node.channel}`,
@@ -143,6 +149,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
       {childrenWithProps}
       <ReactFlow
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         elements={elements}
         minZoom={0.1}
         onLoad={handleLoaded}
