@@ -21,10 +21,10 @@ function Asyncapi() {
       const data = [];
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
         if (application === name) {
-          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
+          const parsedDoc = await parser.parse(asyncapiUrl);
           setFocusedApplication({ parsedDoc, name });
         } else {
-          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
+          const parsedDoc = await parser.parse(asyncapiUrl);
           data.push({ parsedDoc, name });
         }
       }
@@ -49,7 +49,7 @@ function Asyncapi() {
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/gamingapi/application/' + name}
+                    href={'/social-media/application/' + name}
                   >
                     <button
                       style={{

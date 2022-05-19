@@ -5,6 +5,8 @@ import App from './App';
 import SystemView from './SystemView';
 import GamingapiSystem from './gamingapi/system';
 import GamingapiApplication from './gamingapi/application';
+import SocialMediaSystem from './social_media/system';
+import SocialMediaApplication from './social_media/application';
 import Asyncapi from './Asyncapi';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
@@ -25,6 +27,12 @@ ReactDOM.render(
       </Route>
       <Route exact path="/gamingapi/application/:application">
         <GamingapiApplication />
+      </Route>
+      <Route exact path="/social-media/system">
+        <SocialMediaSystem />
+      </Route>
+      <Route exact path="/social-media/application/:application">
+        <SocialMediaApplication />
       </Route>
     </Router>
   </React.StrictMode>,

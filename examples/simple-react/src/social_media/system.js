@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ApplicationFocusView,
-  AsyncAPIApplication,
-} from '@lagoni/edavisualiser';
+import { AsyncAPIApplication, SystemView } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
 import '../App.css';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
-import { useParams } from 'react-router-dom';
-
 const parser = window['AsyncAPIParser'];
-function Asyncapi() {
-  let { application } = useParams();
-  const [externalApplications, setAsyncapiDocuments] = useState([]);
-  const [focusedApplication, setFocusedApplication] = useState(undefined);
 
+function Asyncapi() {
+  const [asyncapiDocuments, setAsyncapiDocuments] = useState([]);
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {
       const data = [];
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
-        if (application === name) {
-          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
-          setFocusedApplication({ parsedDoc, name });
-        } else {
-          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
-          data.push({ parsedDoc, name });
-        }
+        const parsedDoc = await parser.parse(asyncapiUrl);
+        data.push({ parsedDoc, name });
       }
       setAsyncapiDocuments(data);
     };
@@ -37,11 +25,10 @@ function Asyncapi() {
       .catch(console.error);
   }, []);
   let something;
-  if (externalApplications.length > 0 && focusedApplication !== undefined) {
+  if (asyncapiDocuments.length > 0) {
     something = (
-      <ApplicationFocusView>
-        <AsyncAPIApplication document={focusedApplication.parsedDoc} />
-        {externalApplications.map(({ parsedDoc, name }) => {
+      <SystemView>
+        {asyncapiDocuments.map(({ parsedDoc, name }) => {
           return (
             <AsyncAPIApplication
               document={parsedDoc}
@@ -49,7 +36,7 @@ function Asyncapi() {
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/gamingapi/application/' + name}
+                    href={'/social-media/application/' + name}
                   >
                     <button
                       style={{
@@ -65,7 +52,7 @@ function Asyncapi() {
             />
           );
         })}
-      </ApplicationFocusView>
+      </SystemView>
     );
   } else {
     something = <h1>Not loaded</h1>;
