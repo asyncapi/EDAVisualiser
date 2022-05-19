@@ -21,12 +21,22 @@ const edgeTypes: EdgeTypesType = {
 
 interface ApplicationFocusViewProps {
   layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
+  sideMenu: () => React.FunctionComponent<any>;
 }
 
 export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewProps> = ({
   children,
   layout = elementsToLayout => {
     return <ColumnLayout elementsToRender={elementsToLayout} />;
+  },
+  sideMenu = () => {
+    return (
+      <div className="m-4 px-2 text-lg absolute text-gray-800 top-0 left-0 bg-white space-x-2 py-2 border border-gray-100 inline-block">
+        <span className="font-bold">Event Visualiser</span>
+        <span className="text-gray-200">|</span>
+        <span className="font-light capitalize">Test</span>
+      </div>
+    );
   },
 }) => {
   const [loaded, setLoaded] = useState(false);
@@ -163,11 +173,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
         />
         {loaded && layoutElement}
       </ReactFlow>
-      <div className="m-4 px-2 text-lg absolute text-gray-800 top-0 left-0 bg-white space-x-2 py-2 border border-gray-100 inline-block">
-        <span className="font-bold">Event Visualiser</span>
-        <span className="text-gray-200">|</span>
-        <span className="font-light capitalize">Test</span>
-      </div>
+      {sideMenu}
     </section>
   );
 };

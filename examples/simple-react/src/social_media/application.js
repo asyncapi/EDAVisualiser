@@ -8,6 +8,7 @@ import '../App.css';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
 import { useParams } from 'react-router-dom';
+import { Menu } from './menu';
 
 const parser = window['AsyncAPIParser'];
 function Asyncapi() {
@@ -39,7 +40,7 @@ function Asyncapi() {
   let something;
   if (externalApplications.length > 0 && focusedApplication !== undefined) {
     something = (
-      <ApplicationFocusView>
+      <ApplicationFocusView sideMenu={Menu}>
         <AsyncAPIApplication document={focusedApplication.parsedDoc} />
         {externalApplications.map(({ parsedDoc, name }) => {
           return (

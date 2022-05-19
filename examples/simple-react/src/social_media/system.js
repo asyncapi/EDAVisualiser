@@ -4,6 +4,7 @@ import '@lagoni/edavisualiser/styles/default.css';
 import '../App.css';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
+import { Menu } from './menu';
 const parser = window['AsyncAPIParser'];
 
 function Asyncapi() {
@@ -27,7 +28,7 @@ function Asyncapi() {
   let something;
   if (asyncapiDocuments.length > 0) {
     something = (
-      <SystemView>
+      <SystemView sideMenu={Menu}>
         {asyncapiDocuments.map(({ parsedDoc, name }) => {
           return (
             <AsyncAPIApplication
