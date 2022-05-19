@@ -16,7 +16,7 @@ export const OutgoingNode: React.FunctionComponent<OutgoingNodeProps> = ({
           style={{ background: 'orange' }}
         />
         <span className="block leading-6  text-gray-900 text-xs font-light uppercase">
-          You can publish
+          Channel
         </span>
         <div>
           <h3 className="text-lg leading-6 font-medium text-gray-900">

@@ -17,7 +17,7 @@ export const IncomingNode: React.FunctionComponent<IncomingNodeProps> = ({
       <div className="px-4 py-5 sm:px-6 space-y-4">
         <div className="flex justify-between">
           <span className="block leading-6  text-gray-900 uppercase text-xs font-light">
-            You can subscribe
+            Channel
           </span>
         </div>
         <div>

@@ -61,18 +61,21 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
       );
     }
   }
-  const license: ApplicationLicenseData = {
-    name:
-      props.document
-        .info()
-        ?.license()
-        ?.name() || 'Not defined',
-    url:
-      props.document
-        .info()
-        ?.license()
-        ?.url() || 'Not defined',
-  };
+  let license = undefined;
+  if (props.document.info()?.license()) {
+    license = {
+      name:
+        props.document
+          .info()
+          ?.license()
+          ?.name() || 'Not defined',
+      url:
+        props.document
+          .info()
+          ?.license()
+          ?.url() || 'Not defined',
+    };
+  }
   const servers: ApplicationServerData[] = Object.entries(
     props.document.servers(),
   ).map(([serverId, server]) => {
@@ -80,7 +83,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
       description: server.description() || 'No description',
       name: serverId,
       protocol: server.protocol() || 'No protocol',
-      protocolVersion: server.protocolVersion() || 'No protocol version',
+      protocolVersion: server.protocolVersion() || undefined,
       url: server.url(),
     };
   });
@@ -92,7 +95,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
       description={props.document.info().description() || 'No description'}
       id={props.document.info().title()}
       license={license}
-      externalDocs={props.document.externalDocs()?.url() || 'No external docs'}
+      externalDocs={props.document.externalDocs()?.url() || undefined}
       servers={servers}
       title={props.document.info().title()}
       version={props.document.info().version()}

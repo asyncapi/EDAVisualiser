@@ -31,7 +31,7 @@ export const ExternalApplicationNode: React.FunctionComponent<ExternalApplicatio
           {topExtended !== undefined && topExtended}
           <div className="flex justify-between mb-4">
             <span className="block leading-6 text-gray-900 uppercase text-xs font-light">
-              application
+              External application
             </span>
           </div>
 

@@ -48,10 +48,17 @@ function Asyncapi() {
               topExtended={
                 <div className="flex justify-between mb-4">
                   <a
-                    className="block leading-6 text-gray-900 uppercase text-xs font-light"
+                    className="leading-6 text-gray-900 uppercase text-xs font-light"
                     href={'/gamingapi/application/' + name}
                   >
-                    Go to application
+                    <button
+                      style={{
+                        backgroundColor: 'rgba(110, 231, 183, 1)',
+                        padding: '0 10px',
+                      }}
+                    >
+                      Focus application
+                    </button>
                   </a>
                 </div>
               }
