@@ -6,7 +6,7 @@ import ReactFlow, {
   EdgeTypesType,
   FlowElement,
 } from 'react-flow-renderer';
-import { ColumnLayout } from '../../components/layouts';
+import { CircleLayout } from '../../components/layouts/CircleLayout';
 import nodeTypes from '../../components/react-flow-renderer-nodes';
 import FloatingConnectionLine from '../../components/react-flow-renderer-nodes/FloatingConnectionLine';
 import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
@@ -29,7 +29,7 @@ const edgeTypes: EdgeTypesType = {
 export const SystemView: React.FunctionComponent<SystemViewProps> = ({
   children,
   layout = elementsToLayout => {
-    return <ColumnLayout elementsToRender={elementsToLayout} />;
+    return <CircleLayout elementsToRender={elementsToLayout} />;
   },
 }) => {
   const [loaded, setLoaded] = useState(false);
