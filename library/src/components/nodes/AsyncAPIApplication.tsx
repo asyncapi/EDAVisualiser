@@ -56,7 +56,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
       );
     }
   }
-  let license = undefined;
+  let license;
   if (props.document.info()?.license()) {
     license = {
       name:
