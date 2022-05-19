@@ -14,7 +14,7 @@ EDAVisualiser is a react library to visualize Event Driven Architectures.
 
 This package is still under development and has not reached version 1.0.0 yet. This means that its API may contain breaking changes until we're able to deploy the first stable version and begin semantic versioning. Please use tests to ensure expected outputs or to hardcode the version.
 
-https://user-images.githubusercontent.com/13396189/169314389-87ddc639-f341-4177-85d4-7f65e8c92db4.mp4
+https://user-images.githubusercontent.com/13396189/169362612-0b6129b6-09b6-4807-aff9-8b545bcbc5dc.mp4
 
 ---
 
