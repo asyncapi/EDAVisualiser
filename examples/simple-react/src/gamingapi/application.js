@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ApplicationView,
+  ApplicationFocusView,
   AsyncAPIApplication,
-  SystemView,
 } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
 import '../App.css';
 import '@asyncapi/parser/dist/bundle';
-import { useParams } from 'react-router-dom';
 import { apps } from './apps';
+import { useParams } from 'react-router-dom';
 
 const parser = window['AsyncAPIParser'];
 function Asyncapi() {
   let { application } = useParams();
-  const [asyncapiDocument, setAsyncapiDocument] = useState(undefined);
+  const [externalApplications, setAsyncapiDocuments] = useState([]);
+  const [focusedApplication, setFocusedApplication] = useState(undefined);
 
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {
-      const appLink = apps[application];
-      if (appLink !== undefined) {
-        const doc = await parser.parseFromUrl(appLink);
-        setAsyncapiDocument(doc);
+      const data = [];
+      for (const [name, asyncapiUrl] of Object.entries(apps)) {
+        if (application === name) {
+          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
+          setFocusedApplication({ parsedDoc, name });
+        } else {
+          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
+          data.push({ parsedDoc, name });
+        }
       }
+      setAsyncapiDocuments(data);
     };
 
     // call the function
@@ -31,11 +37,28 @@ function Asyncapi() {
       .catch(console.error);
   }, []);
   let something;
-  if (asyncapiDocument !== undefined) {
+  if (externalApplications.length > 0) {
     something = (
-      <ApplicationView>
-        <AsyncAPIApplication document={asyncapiDocument} />
-      </ApplicationView>
+      <ApplicationFocusView>
+        <AsyncAPIApplication document={focusedApplication.parsedDoc} />
+        {externalApplications.map(({ parsedDoc, name }) => {
+          return (
+            <AsyncAPIApplication
+              document={parsedDoc}
+              topExtended={
+                <div className="flex justify-between mb-4">
+                  <a
+                    className="block leading-6 text-gray-900 uppercase text-xs font-light"
+                    href={'/gamingapi/application/' + name}
+                  >
+                    Go to application
+                  </a>
+                </div>
+              }
+            />
+          );
+        })}
+      </ApplicationFocusView>
     );
   } else {
     something = <h1>Not loaded</h1>;

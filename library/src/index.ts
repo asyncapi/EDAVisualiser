@@ -1,4 +1,5 @@
 export * from './visualiser/react-flow-renderer/ApplicationView';
+export * from './visualiser/react-flow-renderer/ApplicationFocusView';
 export * from './visualiser/react-flow-renderer/SystemView';
 export * from './components/nodes/Application';
 export * from './components/nodes/Incoming';

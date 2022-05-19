@@ -1,27 +1,24 @@
 import React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { Markdown } from '../Markdown';
-import { ApplicationNodeProps } from '../../types';
+import { ExternalApplicationNodeProps } from '../../types';
 
-export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
+export const ExternalApplicationNode: React.FunctionComponent<ExternalApplicationNodeProps> = ({
   data: {
     description,
     title,
     version,
     license,
     externalDocs,
-    servers,
     defaultContentType,
-    hideHandlers,
-    hideInHandler,
-    hideOutHandler,
+    side,
     topExtended,
   },
 }) => {
   return (
-    <div className="bg-white shadow sm:rounded-lg border-2 border-gray-300 flex">
+    <div className="bg-gray-300 shadow sm:rounded-lg border-2 border-white flex">
       <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
-      {hideInHandler !== true && hideHandlers !== true && (
+      {side === 'incoming' && (
         <div className="flex justify-center items-center border-r border-gray-200">
           <span className="block transform -rotate-90 uppercase text-green-500 w-full font-bold tracking-widest px-2 ">
             In
@@ -61,36 +58,6 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
           )}
         </div>
 
-        {servers && servers.length > 0 && (
-          <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Servers
-            </h3>
-            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 mt-4">
-              {servers.map(server => {
-                return (
-                  <div key={server.name} className="sm:col-span-1">
-                    <dt className="text-sm text-gray-500 font-bold flex">
-                      {server.name}
-                      <span className="block ml-4 leading-6 px-1.5  rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {server.protocolVersion
-                          ? `${server.protocol} ${server.protocolVersion}`
-                          : server.protocol}
-                      </span>
-                    </dt>
-                    <dd className="mt-1 text-xs text-gray-900">
-                      <Markdown>{server.description}</Markdown>
-                    </dd>
-                    <dd className="mt-1 text-xs text-gray-900">
-                      url: {server.url}
-                    </dd>
-                  </div>
-                );
-              })}
-            </dl>
-          </div>
-        )}
-
         <div className="text-right text-xs mt-10 space-y-2 italic py-5 sm:px-6">
           {externalDocs && (
             <a
@@ -114,7 +81,7 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
           )}
         </div>
       </div>
-      {hideOutHandler !== true && hideHandlers !== true && (
+      {side === 'outgoing' && (
         <div className="flex justify-center items-center border-l border-gray-2">
           <span className="block transform -rotate-90 uppercase text-yellow-500 w-full font-bold tracking-widest">
             Out
@@ -127,4 +94,4 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
   );
 };
 
-export default ApplicationNode;
+export default ExternalApplicationNode;

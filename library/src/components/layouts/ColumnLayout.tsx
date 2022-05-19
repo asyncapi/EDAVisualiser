@@ -21,12 +21,18 @@ function calculateLayout(
   passedOptions: Partial<ColumnLayoutOptions> = defaultOptions,
   onGroupGive: (element: FlowElement) => number = element => {
     switch (element.type) {
+      case 'externalApplicationNode':
+        if (element.data.side === 'outgoing') {
+          return 0;
+        } else {
+          return 4;
+        }
       case 'incomingNode':
-        return 0;
-      case 'applicationNode':
         return 1;
-      case 'outgoingNode':
+      case 'applicationNode':
         return 2;
+      case 'outgoingNode':
+        return 3;
     }
     return 0;
   },

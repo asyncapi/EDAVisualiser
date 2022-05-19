@@ -26,7 +26,7 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
   const [loaded, setLoaded] = useState(false);
   const [elements, setElements] = useState<FlowElement[]>([]);
   const tempElements: FlowElement[] = [];
-  let lastApplicationId: string;
+
   const addApplicationCallback = (node: ApplicationNodeData) => {
     const applicationReactFlowRendererNode = {
       id: node.id,
@@ -34,10 +34,10 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
       data: { ...node, nodeWidth: 700, nodeHeight: 300 },
       position: { x: 0, y: 0 },
     };
-    lastApplicationId = node.id;
     tempElements.push(applicationReactFlowRendererNode);
   };
   const addIncomingCallback = (node: IncomingNodeData) => {
+    const appId = node.forApplication || '';
     const incomingReactFlowRendererNode = {
       id: node.id,
       type: 'incomingNode',
@@ -45,15 +45,16 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
       position: { x: 0, y: 0 },
     };
     const connectionEdge = {
-      id: `incoming-${lastApplicationId}-${node.id}`,
+      id: `incoming-${appId}-${node.id}`,
       type: 'smoothstep',
       style: { stroke: '#7ee3be', strokeWidth: 4 },
-      target: lastApplicationId,
+      target: appId,
       source: node.id,
     };
     tempElements.push(incomingReactFlowRendererNode, connectionEdge);
   };
   const addOutgoingCallback = (node: OutgoingNodeData) => {
+    const appId = node.forApplication || '';
     const outgoingNode = {
       id: node.id,
       type: 'outgoingNode',
@@ -61,10 +62,10 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
       position: { x: 0, y: 0 },
     };
     const connectionEdge = {
-      id: `outgoing-${lastApplicationId}-${node.id}`,
+      id: `outgoing-${appId}-${node.id}`,
       type: 'smoothstep',
       style: { stroke: 'orange', strokeWidth: 4 },
-      source: lastApplicationId,
+      source: appId,
       target: node.id,
     };
     tempElements.push(outgoingNode, connectionEdge);

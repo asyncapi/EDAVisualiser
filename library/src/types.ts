@@ -30,9 +30,25 @@ export interface ApplicationNodeData {
   externalDocs?: string;
   servers?: ApplicationServerData[];
   hideHandlers?: boolean;
+  hideInHandler?: boolean;
+  hideOutHandler?: boolean;
   topExtended?: ReactElement;
 }
-
+export interface ExternalApplicationNodeData {
+  id: string;
+  defaultContentType?: string;
+  description?: string;
+  title: string;
+  version: string;
+  license?: ApplicationLicenseData;
+  externalDocs?: string;
+  servers?: ApplicationServerData[];
+  side?: 'outgoing' | 'incoming';
+  topExtended?: ReactElement;
+}
+export interface ExternalApplicationNodeProps {
+  data: ExternalApplicationNodeData;
+}
 export interface ApplicationNodeProps {
   data: ApplicationNodeData;
 }

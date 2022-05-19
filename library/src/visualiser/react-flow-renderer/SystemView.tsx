@@ -16,6 +16,7 @@ import {
   LayoutProps,
   OutgoingNodeData,
 } from '../../types';
+import { getUniqueConnectionId } from '../helpers/RelationFinder';
 
 interface SystemViewProps {
   layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
@@ -49,14 +50,14 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
 
   const addOutgoingCallback = (node: OutgoingNodeData) => {
     const appId = node.forApplication || '';
-    const uniqueConnectionId = node.channel;
+    const uniqueConnectionId = getUniqueConnectionId(node);
     !outgoingConnections[appId] && (outgoingConnections[appId] = []);
     outgoingConnections[appId].push(uniqueConnectionId);
   };
 
   const addIncomingCallback = (node: IncomingNodeData) => {
     const appId = node.forApplication || '';
-    const uniqueConnectionId = node.channel;
+    const uniqueConnectionId = getUniqueConnectionId(node);
     !incomingConnections[uniqueConnectionId] &&
       (incomingConnections[uniqueConnectionId] = []);
     incomingConnections[uniqueConnectionId].push(appId);
