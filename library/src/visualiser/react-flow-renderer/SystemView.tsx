@@ -46,12 +46,14 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
     };
     tempElements.push(applicationReactFlowRendererNode);
   };
+
   const addOutgoingCallback = (node: OutgoingNodeData) => {
     const appId = node.forApplication || '';
     const uniqueConnectionId = node.channel;
     !outgoingConnections[appId] && (outgoingConnections[appId] = []);
     outgoingConnections[appId].push(uniqueConnectionId);
   };
+
   const addIncomingCallback = (node: IncomingNodeData) => {
     const appId = node.forApplication || '';
     const uniqueConnectionId = node.channel;
@@ -59,8 +61,8 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
       (incomingConnections[uniqueConnectionId] = []);
     incomingConnections[uniqueConnectionId].push(appId);
   };
-  // for each application, list all applications it connects to based on channel
 
+  // for each application, list all applications it connects to based on channel
   useEffect(() => {
     for (const [appId, uniqueChannels] of Object.entries(outgoingConnections)) {
       for (const uniqueChannel of uniqueChannels) {

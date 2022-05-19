@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { FlowElement } from 'react-flow-renderer';
 
 export type InternalProps = {
@@ -29,6 +30,7 @@ export interface ApplicationNodeData {
   externalDocs?: string;
   servers?: ApplicationServerData[];
   hideHandlers?: boolean;
+  topExtended?: ReactElement;
 }
 
 export interface ApplicationNodeProps {

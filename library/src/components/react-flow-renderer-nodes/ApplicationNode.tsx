@@ -13,6 +13,7 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
     servers,
     defaultContentType,
     hideHandlers,
+    topExtended,
   },
 }) => {
   return (
@@ -28,8 +29,9 @@ export const ApplicationNode: React.FunctionComponent<ApplicationNodeProps> = ({
 
       <div>
         <div className="px-4 py-5 sm:px-6">
+          {topExtended !== undefined && topExtended}
           <div className="flex justify-between mb-4">
-            <span className="block leading-6 text-gray-900 uppercase text-xs  font-light">
+            <span className="block leading-6 text-gray-900 uppercase text-xs font-light">
               application
             </span>
           </div>

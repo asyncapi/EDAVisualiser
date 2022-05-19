@@ -4,9 +4,10 @@
   "private": true,
   "dependencies": {
     "@asyncapi/parser": "^1.15.0",
-    "@lagoni/edavisualiser": "0.4.2",
+    "@lagoni/edavisualiser": "0.8.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -20,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:symlink": "npm link ../../library/node_modules/react-dom && npm link ../../library/node_modules/react"
+    "build:symlink": "npm link ../../library/node_modules/react-dom && npm link ../../library/node_modules/react",
+    "build:link": "cd ../../library && npm link && cd ../examples/simple-react && npm link @lagoni/edavisualiser"
   },
   "eslintConfig": {
     "extends": [

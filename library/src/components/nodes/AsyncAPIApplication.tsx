@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   ApplicationLicenseData,
   ApplicationServerData,
@@ -11,6 +11,7 @@ import { AsyncAPIDocument } from '@asyncapi/parser';
 import { Incoming } from './Incoming';
 type AsyncapiApplicationProps = {
   document: AsyncAPIDocument;
+  topExtended?: ReactElement;
 };
 
 type ApplicationProps = AsyncapiApplicationProps & InternalProps;
@@ -85,6 +86,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
   });
   return (
     <Application
+      topExtended={props.topExtended}
       internal={props.internal}
       defaultContentType={props.document.defaultContentType() || 'Undefined'}
       description={props.document.info().description() || 'No description'}
