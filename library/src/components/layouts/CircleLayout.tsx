@@ -11,14 +11,14 @@ import { LayoutProps } from '../../types';
 export interface CircleLayoutOptions {}
 const defaultOptions: CircleLayoutOptions = {};
 function degreesToRadians(degrees: number) {
-  var pi = Math.PI;
+  const pi = Math.PI;
   return degrees * (pi / 180);
 }
 function calculateLayout(
   elements: Node[],
   passedOptions: Partial<CircleLayoutOptions> = defaultOptions,
 ): FlowElement[] {
-  //const options = { ...defaultOptions, ...passedOptions };
+  // const options = { ...defaultOptions, ...passedOptions };
 
   const eachDegree = 360 / elements.length;
   let nextDegree = 0;
