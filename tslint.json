@@ -39,6 +39,7 @@
   "linterOptions": {
     "exclude": [
       "node_modules/**/*",
+      "examples/**",
       "library/browser/**",
       "library/*.config.js",
       "library/*.config.js"
