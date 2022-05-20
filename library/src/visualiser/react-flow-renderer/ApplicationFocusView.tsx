@@ -20,8 +20,8 @@ const edgeTypes: EdgeTypesType = {
 };
 
 interface ApplicationFocusViewProps {
-  layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
-  sideMenu: () => React.FunctionComponent<any>;
+  layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
+  sideMenu?: () => React.FunctionComponent<any>;
 }
 
 export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewProps> = ({

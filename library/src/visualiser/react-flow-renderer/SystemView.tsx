@@ -19,8 +19,8 @@ import {
 import { getUniqueConnectionId } from '../helpers/RelationFinder';
 
 interface SystemViewProps {
-  layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
-  sideMenu: () => React.FunctionComponent<any>;
+  layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
+  sideMenu?: () => React.FunctionComponent<any>;
 }
 
 const edgeTypes: EdgeTypesType = {

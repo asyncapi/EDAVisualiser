@@ -14,8 +14,8 @@ import {
 } from '../../types';
 
 interface ApplicationViewProps {
-  layout: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
-  sideMenu: () => React.FunctionComponent<any>;
+  layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
+  sideMenu?: () => React.FunctionComponent<any>;
 }
 
 export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
