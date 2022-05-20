@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ApplicationNodeData, InternalProps } from '../../types';
 
 type ApplicationProps = ApplicationNodeData & InternalProps;
@@ -9,6 +9,7 @@ type ApplicationProps = ApplicationNodeData & InternalProps;
  * What you define as an instance can be application, grouped or single server less function, etc.
  */
 export const Application: React.FunctionComponent<ApplicationProps> = props => {
+  const [temp, setTemp] = useState<any>(undefined);
   const nodeData = {
     ...props,
   };
@@ -16,17 +17,20 @@ export const Application: React.FunctionComponent<ApplicationProps> = props => {
   delete nodeData.internal;
   const applicationNodeData: ApplicationNodeData = nodeData;
 
-  props.internal?.addApplicationCallback(applicationNodeData);
+  useEffect(() => {
+    props.internal?.addApplicationCallback(applicationNodeData);
 
-  const childrenWithProps = React.Children.map(props.children, child => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, {
-        forApplication: applicationNodeData.id,
-        internal: props.internal,
-      });
-    }
-    return child;
-  });
+    const childrenWithProps = React.Children.map(props.children, child => {
+      if (React.isValidElement(child)) {
+        return React.cloneElement(child, {
+          forApplication: applicationNodeData.id,
+          internal: props.internal,
+        });
+      }
+      return child;
+    });
+    setTemp(childrenWithProps);
+  }, []);
 
-  return <div key={applicationNodeData.id}>{childrenWithProps}</div>;
+  return <div key={applicationNodeData.id}>{temp}</div>;
 };

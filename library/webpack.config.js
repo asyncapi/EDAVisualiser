@@ -4,7 +4,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 const umdBundle = {
   entry: {
-    index: './src/index.ts',
+    Application: './src/components/nodes/Application.tsx',
+    ApplicationView: './src/visualiser/react-flow-renderer/ApplicationView.tsx',
   },
   target: 'web',
   mode: 'production',

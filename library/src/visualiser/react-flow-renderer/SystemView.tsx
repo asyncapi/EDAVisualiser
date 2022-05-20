@@ -18,7 +18,7 @@ import {
 } from '../../types';
 import { getUniqueConnectionId } from '../helpers/RelationFinder';
 
-interface SystemViewProps {
+export interface SystemViewProps {
   layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
   sideMenu?: () => React.FunctionComponent<any>;
 }

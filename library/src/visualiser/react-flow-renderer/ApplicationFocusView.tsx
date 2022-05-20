@@ -19,7 +19,7 @@ const edgeTypes: EdgeTypesType = {
   floating: FloatingEdge,
 };
 
-interface ApplicationFocusViewProps {
+export interface ApplicationFocusViewProps {
   layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
   sideMenu?: () => React.FunctionComponent<any>;
 }

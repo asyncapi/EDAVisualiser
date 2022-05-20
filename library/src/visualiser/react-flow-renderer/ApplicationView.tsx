@@ -13,7 +13,7 @@ import {
   OutgoingNodeData,
 } from '../../types';
 
-interface ApplicationViewProps {
+export interface ApplicationViewProps {
   layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
   sideMenu?: () => React.FunctionComponent<any>;
 }

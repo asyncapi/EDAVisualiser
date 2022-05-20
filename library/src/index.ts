@@ -6,3 +6,23 @@ export * from './components/nodes/Incoming';
 export * from './components/nodes/Outgoing';
 export * from './components/nodes/AsyncAPIApplication';
 export * from './components/layouts';
+export * from './types';
+
+import {
+  ApplicationView,
+  ApplicationFocusView,
+  SystemView,
+  Application,
+  Incoming,
+  Outgoing,
+  AsyncAPIApplication,
+} from '.';
+export default {
+  ApplicationView,
+  ApplicationFocusView,
+  SystemView,
+  Application,
+  Incoming,
+  Outgoing,
+  AsyncAPIApplication,
+};

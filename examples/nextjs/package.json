@@ -3,12 +3,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "npm link ../../library/node_modules/react-dom ../../library/node_modules/react ../../library/"
   },
   "dependencies": {
-    "@lagoni/edavisualiser": "0.0.0",
-    "next": "latest",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@lagoni/edavisualiser": "0.13.2",
+    "next": "10",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   }
 }

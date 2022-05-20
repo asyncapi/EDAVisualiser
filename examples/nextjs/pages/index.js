@@ -1,7 +1,13 @@
 import Head from 'next/head';
-import { ApplicationView, Application } from '@lagoni/edavisualiser';
+// Import component using `dynamic` helper
+import dynamic from 'next/dynamic';
 
+// Import component without SSR/SSG
+const ApplicationView = dynamic(() => import('@lagoni/edavisualiser/browser/ApplicationView'), { ssr: false });
+const Application = dynamic(() => import('@lagoni/edavisualiser/browser/Application'), { ssr: false });
+ 
 export default function Home() {
+  if (typeof navigator === 'undefined') return null;
   return (
     <div className="container">
       <Head>
