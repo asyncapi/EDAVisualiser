@@ -90,7 +90,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
       leadApplicationIncomingChannels.push(node.id);
       tempElements.push(incomingReactFlowRendererNode, connectionEdge);
     } else {
-      const source = `${leadApplication.id}${node.channel}`;
+      const source = `outgoing_${leadApplication.id}_${node.channel}`;
       if (leadApplicationOutgoingChannels.includes(source)) {
         const connectionEdge = {
           id: `incoming-${appId}-${node.id}`,
@@ -122,7 +122,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
       leadApplicationOutgoingChannels.push(node.id);
       tempElements.push(outgoingNode, connectionEdge);
     } else {
-      const target = `${leadApplication.id}${node.channel}`;
+      const target = `incoming_${leadApplication.id}_${node.channel}`;
       if (leadApplicationIncomingChannels.includes(target)) {
         const connectionEdge = {
           id: `outgoing-${appId}-${node.id}`,

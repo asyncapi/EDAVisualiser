@@ -41,10 +41,11 @@ function Asyncapi() {
   if (externalApplications.length > 0 && focusedApplication !== undefined) {
     something = (
       <ApplicationFocusView sideMenu={Menu}>
-        <AsyncAPIApplication document={focusedApplication.parsedDoc} />
+        <AsyncAPIApplication key={focusedApplication.parsedDoc.info().title()} document={focusedApplication.parsedDoc} />
         {externalApplications.map(({ parsedDoc, name }) => {
           return (
             <AsyncAPIApplication
+              key={parsedDoc.info().title()}
               document={parsedDoc}
               topExtended={
                 <div className="flex justify-between mb-4">

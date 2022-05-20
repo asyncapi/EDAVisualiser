@@ -55,7 +55,7 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
       position: { x: 0, y: 0 },
     };
     const connectionEdge = {
-      id: `incoming-${appId}-${node.id}`,
+      id: `connection-${appId}-${node.id}`,
       type: 'smoothstep',
       style: { stroke: '#7ee3be', strokeWidth: 4 },
       target: appId,
@@ -72,7 +72,7 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
       position: { x: 0, y: 0 },
     };
     const connectionEdge = {
-      id: `outgoing-${appId}-${node.id}`,
+      id: `connection-${appId}-${node.id}`,
       type: 'smoothstep',
       style: { stroke: 'orange', strokeWidth: 4 },
       source: appId,

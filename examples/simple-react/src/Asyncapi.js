@@ -188,11 +188,9 @@ components:
   }, []);
   let something;
   if (data !== undefined) {
-    something = (
-      <ApplicationView>
-        <AsyncAPIApplication document={data} />
-      </ApplicationView>
-    );
+    something = <ApplicationView>
+      <AsyncAPIApplication document={data} />
+    </ApplicationView>;
   } else {
     something = <h1>Not loaded</h1>;
   }

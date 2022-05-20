@@ -23,7 +23,9 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
     props.document.channels(),
   )) {
     if (channel.hasPublish()) {
-      const channelId = props.document.info().title() + channelPath;
+      const channelId = `incoming_${props.document
+        .info()
+        .title()}_${channelPath}`;
       const messages: MessageData[] = channel
         .publish()
         .messages()
@@ -32,6 +34,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
         });
       incomingNodes.push(
         <Incoming
+          key={channelId}
           channel={channelPath}
           description={channel.description() || 'No description'}
           id={channelId}
@@ -39,7 +42,9 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
         />,
       );
     } else if (channel.hasSubscribe()) {
-      const channelId = props.document.info().title() + channelPath;
+      const channelId = `outgoing_${props.document
+        .info()
+        .title()}_${channelPath}`;
       const messages: MessageData[] = channel
         .subscribe()
         .messages()
@@ -48,6 +53,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
         });
       outgoingNodes.push(
         <Outgoing
+          key={channelId}
           channel={channelPath}
           description={channel.description() || 'No description'}
           id={channelId}
@@ -84,6 +90,7 @@ export const AsyncAPIApplication: React.FunctionComponent<ApplicationProps> = pr
   });
   return (
     <Application
+      key={props.document.info().title()}
       topExtended={props.topExtended}
       internal={props.internal}
       defaultContentType={props.document.defaultContentType() || undefined}
