@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncAPIApplication, SystemView } from '@lagoni/edavisualiser';
+import {
+  ApplicationFocusView,
+  AsyncAPIApplication,
+} from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
-import '../App.css';
+import '../simple.css';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
+import { useParams } from 'react-router-dom';
+import { Menu } from './menu';
 
-const parser = window['AsyncAPIParser'];
+const parser = (window as any)['AsyncAPIParser'];
 function Asyncapi() {
-  const [asyncapiDocuments, setAsyncapiDocuments] = useState([]);
+  let { application } = useParams<any>();
+  const [externalApplications, setAsyncapiDocuments] = useState<any>([]);
+  const [focusedApplication, setFocusedApplication] = useState<any>(undefined);
+
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {
       const data = [];
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
-        const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
-        data.push({ parsedDoc, name });
+        if (application === name) {
+          const parsedDoc = await parser.parse(asyncapiUrl);
+          setFocusedApplication({ parsedDoc, name });
+        } else {
+          const parsedDoc = await parser.parse(asyncapiUrl);
+          data.push({ parsedDoc, name });
+        }
       }
       setAsyncapiDocuments(data);
     };
@@ -25,18 +38,20 @@ function Asyncapi() {
       .catch(console.error);
   }, []);
   let something;
-  if (asyncapiDocuments.length > 0) {
+  if (externalApplications.length > 0 && focusedApplication !== undefined) {
     something = (
-      <SystemView>
-        {asyncapiDocuments.map(({ parsedDoc, name }) => {
+      <ApplicationFocusView sideMenu={(Menu as any)}>
+        <AsyncAPIApplication key={focusedApplication.parsedDoc.info().title()} document={focusedApplication.parsedDoc} />
+        {externalApplications.map(({ parsedDoc, name }: any) => {
           return (
             <AsyncAPIApplication
+              key={parsedDoc.info().title()}
               document={parsedDoc}
               topExtended={
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/gamingapi/application/' + name}
+                    href={process.env.PUBLIC_URL + '/social-media/application/' + name}
                   >
                     <button
                       style={{
@@ -52,7 +67,7 @@ function Asyncapi() {
             />
           );
         })}
-      </SystemView>
+      </ApplicationFocusView>
     );
   } else {
     something = <h1>Not loaded</h1>;

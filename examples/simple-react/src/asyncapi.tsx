@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
   ApplicationView,
-  AsyncAPIApplication,
-  ColumnLayout,
+  AsyncAPIApplication
 } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
-import './App.css';
+import './simple.css';
 import '@asyncapi/parser/dist/bundle';
-const parser = window['AsyncAPIParser'];
+const parser = (window as any)['AsyncAPIParser'];
 function Asyncapi() {
-  const [data, setData] = useState(undefined);
+  const [data, setData] = useState<any>(undefined);
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {

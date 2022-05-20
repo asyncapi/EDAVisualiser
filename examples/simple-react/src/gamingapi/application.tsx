@@ -4,17 +4,16 @@ import {
   AsyncAPIApplication,
 } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
-import '../App.css';
+import '../simple.css';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
 import { useParams } from 'react-router-dom';
-import { Menu } from './menu';
 
-const parser = window['AsyncAPIParser'];
+const parser = (window as any)['AsyncAPIParser'];
 function Asyncapi() {
-  let { application } = useParams();
-  const [externalApplications, setAsyncapiDocuments] = useState([]);
-  const [focusedApplication, setFocusedApplication] = useState(undefined);
+  let { application } = useParams<any>();
+  const [externalApplications, setAsyncapiDocuments] = useState<any>([]);
+  const [focusedApplication, setFocusedApplication] = useState<any>(undefined);
 
   useEffect(() => {
     // declare the async data fetching function
@@ -22,10 +21,10 @@ function Asyncapi() {
       const data = [];
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
         if (application === name) {
-          const parsedDoc = await parser.parse(asyncapiUrl);
+          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
           setFocusedApplication({ parsedDoc, name });
         } else {
-          const parsedDoc = await parser.parse(asyncapiUrl);
+          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
           data.push({ parsedDoc, name });
         }
       }
@@ -40,18 +39,17 @@ function Asyncapi() {
   let something;
   if (externalApplications.length > 0 && focusedApplication !== undefined) {
     something = (
-      <ApplicationFocusView sideMenu={Menu}>
-        <AsyncAPIApplication key={focusedApplication.parsedDoc.info().title()} document={focusedApplication.parsedDoc} />
-        {externalApplications.map(({ parsedDoc, name }) => {
+      <ApplicationFocusView>
+        <AsyncAPIApplication document={focusedApplication.parsedDoc} />
+        {externalApplications.map(({ parsedDoc, name }: any) => {
           return (
             <AsyncAPIApplication
-              key={parsedDoc.info().title()}
               document={parsedDoc}
               topExtended={
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/social-media/application/' + name}
+                    href={process.env.PUBLIC_URL + '/gamingapi/application/' + name}
                   >
                     <button
                       style={{

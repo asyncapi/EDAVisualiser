@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { AsyncAPIApplication, SystemView } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
-import '../App.css';
+import '../simple.css';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
-import { Menu } from './menu';
-const parser = window['AsyncAPIParser'];
 
+const parser = (window as any)['AsyncAPIParser'];
 function Asyncapi() {
-  const [asyncapiDocuments, setAsyncapiDocuments] = useState([]);
+  const [asyncapiDocuments, setAsyncapiDocuments] = useState<any>([]);
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {
       const data = [];
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
-        const parsedDoc = await parser.parse(asyncapiUrl);
+        const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
         data.push({ parsedDoc, name });
       }
       setAsyncapiDocuments(data);
@@ -28,8 +27,8 @@ function Asyncapi() {
   let something;
   if (asyncapiDocuments.length > 0) {
     something = (
-      <SystemView sideMenu={Menu}>
-        {asyncapiDocuments.map(({ parsedDoc, name }) => {
+      <SystemView>
+        {asyncapiDocuments.map(({ parsedDoc, name }: any) => {
           return (
             <AsyncAPIApplication
               document={parsedDoc}
@@ -37,7 +36,7 @@ function Asyncapi() {
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/social-media/application/' + name}
+                    href={process.env.PUBLIC_URL + '/gamingapi/application/' + name}
                   >
                     <button
                       style={{
