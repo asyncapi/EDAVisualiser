@@ -1,6 +1,6 @@
 {
   "name": "@lagoni/edavisualiser",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "private": false,
   "description": "A React flow library for visualizing event driven architectures.",
   "repository": {
