@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { FlowElement } from 'react-flow-renderer';
+import { AsyncAPIDocument } from '@asyncapi/parser';
 
 export type InternalProps = {
   internal?: {
@@ -9,10 +10,30 @@ export type InternalProps = {
   };
 };
 
+export interface ApplicationViewData {
+  asyncapi?: AsyncapiApplicationData;
+  application?: ApplicationNodeData;
+  incomingOperations?: Array<IncomingNodeData>;
+  outgoingOperations?: Array<OutgoingNodeData>;
+}
+
+export interface ApplicationFocusViewData {
+  asyncapi?: AsyncapiApplicationData;
+  application?: ApplicationNodeData;
+  external?: Array<ApplicationViewData>;
+  incomingOperations?: Array<IncomingNodeData>;
+  outgoingOperations?: Array<OutgoingNodeData>;
+}
+
+export interface SystemViewData {
+  applications: Array<ApplicationViewData>;
+}
+
 export interface ApplicationLicenseData {
   name: string;
   url: string;
 }
+
 export interface ApplicationServerData {
   name: string;
   url: string;
@@ -20,6 +41,12 @@ export interface ApplicationServerData {
   protocol: string;
   protocolVersion?: string;
 }
+
+export interface AsyncapiApplicationData {
+  document: AsyncAPIDocument;
+  topExtended?: ReactElement;
+}
+
 export interface ApplicationNodeData {
   id: string;
   defaultContentType?: string;
@@ -34,6 +61,7 @@ export interface ApplicationNodeData {
   hideOutHandler?: boolean;
   topExtended?: ReactElement;
 }
+
 export interface ExternalApplicationNodeData {
   id: string;
   defaultContentType?: string;
@@ -46,15 +74,19 @@ export interface ExternalApplicationNodeData {
   side?: 'outgoing' | 'incoming';
   topExtended?: ReactElement;
 }
+
 export interface ExternalApplicationNodeProps {
   data: ExternalApplicationNodeData;
 }
+
 export interface ApplicationNodeProps {
   data: ApplicationNodeData;
 }
+
 export interface MessageData {
   title: string;
 }
+
 export interface IncomingNodeData {
   id: string;
   description?: string;
@@ -62,9 +94,11 @@ export interface IncomingNodeData {
   messages?: MessageData[];
   forApplication?: string;
 }
+
 export interface IncomingNodeProps {
   data: IncomingNodeData;
 }
+
 export interface OutgoingNodeData {
   id: string;
   description?: string;
@@ -72,9 +106,11 @@ export interface OutgoingNodeData {
   messages: MessageData[];
   forApplication?: string;
 }
+
 export interface OutgoingNodeProps {
   data: OutgoingNodeData;
 }
+
 export interface LayoutProps {
   elementsToRender: FlowElement[];
 }

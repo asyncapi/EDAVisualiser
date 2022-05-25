@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactFlow, {
-  ArrowHeadType,
   Background,
   BackgroundVariant,
   EdgeTypesType,
@@ -10,25 +9,23 @@ import { CircleLayout } from '../../components/layouts/CircleLayout';
 import nodeTypes from '../../components/react-flow-renderer-nodes';
 import FloatingConnectionLine from '../../components/react-flow-renderer-nodes/FloatingConnectionLine';
 import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
-import {
-  ApplicationNodeData,
-  IncomingNodeData,
-  LayoutProps,
-  OutgoingNodeData,
-} from '../../types';
-import { getUniqueConnectionId } from '../helpers/RelationFinder';
+import { collectSystemNodes } from '../helpers/collect-nodes';
 
-export interface SystemViewProps {
-  layout?: (elements: FlowElement[]) => React.FunctionComponent<LayoutProps>;
-  sideMenu?: () => React.FunctionComponent<any>;
-}
+import { LayoutProps, SystemViewData } from '../../types';
 
 const edgeTypes: EdgeTypesType = {
   floating: FloatingEdge,
 };
 
+export interface SystemViewProps extends SystemViewData {
+  layout?: (
+    elements: FlowElement[],
+  ) => React.JSXElementConstructor<LayoutProps>;
+  sideMenu?: () => React.JSXElementConstructor<any>;
+}
+
 export const SystemView: React.FunctionComponent<SystemViewProps> = ({
-  children,
+  applications,
   layout = elementsToLayout => {
     return <CircleLayout elementsToRender={elementsToLayout} />;
   },
@@ -43,85 +40,19 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
   },
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const [elements, setElements] = useState<FlowElement[]>([]);
-  const tempElements: FlowElement[] = [];
-
-  const outgoingConnections: { [key: string]: string[] } = {};
-  const incomingConnections: { [key: string]: string[] } = {};
-  const addApplicationCallback = (node: ApplicationNodeData) => {
-    const applicationReactFlowRendererNode = {
-      id: node.id,
-      type: 'applicationNode',
-      data: { ...node, hideHandlers: true, nodeWidth: 700, nodeHeight: 300 },
-      position: { x: 0, y: 0 },
-    };
-    tempElements.push(applicationReactFlowRendererNode);
-  };
-
-  const addOutgoingCallback = (node: OutgoingNodeData) => {
-    const appId = node.forApplication || '';
-    const uniqueConnectionId = getUniqueConnectionId(node);
-    !outgoingConnections[appId] && (outgoingConnections[appId] = []);
-    outgoingConnections[appId].push(uniqueConnectionId);
-  };
-
-  const addIncomingCallback = (node: IncomingNodeData) => {
-    const appId = node.forApplication || '';
-    const uniqueConnectionId = getUniqueConnectionId(node);
-    !incomingConnections[uniqueConnectionId] &&
-      (incomingConnections[uniqueConnectionId] = []);
-    incomingConnections[uniqueConnectionId].push(appId);
-  };
-
-  // for each application, list all applications it connects to based on channel
-  useEffect(() => {
-    for (const [appId, uniqueChannels] of Object.entries(outgoingConnections)) {
-      for (const uniqueChannel of uniqueChannels) {
-        if (incomingConnections[uniqueChannel]) {
-          for (const incomingApp of incomingConnections[uniqueChannel]) {
-            const edge = {
-              id: `${appId}-to-${incomingApp}`,
-              type: 'floating',
-              style: { stroke: 'orange', strokeWidth: 4 },
-              source: appId,
-              target: incomingApp,
-              arrowHeadType: ArrowHeadType.Arrow,
-            };
-            tempElements.push(edge);
-          }
-        }
-      }
-    }
-    setElements(tempElements);
-  }, []);
+  const elements = collectSystemNodes({ applications });
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);
     reactFlowInstance.fitView();
   };
 
-  const childrenWithProps = React.Children.map(children, (child: any) => {
-    // Checking isValidElement is the safe way and avoids a typescript
-    // error too.
-    if (React.isValidElement(child)) {
-      const props: any = {
-        internal: {
-          addApplicationCallback,
-          addIncomingCallback,
-          addOutgoingCallback,
-        },
-      };
-      return React.cloneElement(child, props);
-    }
-    return child;
-  });
   const layoutElement = layout(elements);
   return (
     <section
       className="bg-gray-800 edavisualiser-root"
       style={{ width: '100%', height: '100%' }}
     >
-      {childrenWithProps}
       <ReactFlow
         nodeTypes={nodeTypes}
         elements={elements}
@@ -139,7 +70,7 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
         />
         {loaded && layoutElement}
       </ReactFlow>
-      {sideMenu}
+      {sideMenu()}
     </section>
   );
 };

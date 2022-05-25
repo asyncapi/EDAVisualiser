@@ -8,8 +8,6 @@
   },
   "dependencies": {
     "@lagoni/edavisualiser": "0.13.2",
-    "next": "10",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "next": "^10.0.0"
   }
 }

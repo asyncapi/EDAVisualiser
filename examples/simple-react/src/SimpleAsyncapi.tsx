@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ApplicationView,
-  AsyncAPIApplication
-} from '@lagoni/edavisualiser';
+import { ApplicationView } from '@lagoni/edavisualiser';
 import '@lagoni/edavisualiser/styles/default.css';
-import './simple.css';
 import '@asyncapi/parser/dist/bundle';
-const parser = (window as any)['AsyncAPIParser'];
-function Asyncapi() {
-  const [data, setData] = useState<any>(undefined);
-  useEffect(() => {
-    // declare the async data fetching function
-    const fetchData = async () => {
-      const doc = await parser.parse(`asyncapi: '2.4.0'
+
+const asyncAPIDocument = `
+asyncapi: '2.4.0'
 info:
   title: Streetlights Kafka API
   version: '1.0.0'
@@ -35,12 +27,23 @@ servers:
     description: Test broker
     security:
       - saslScram: []
-
+  test_oauth:
+    url: test.mykafkacluster.org:8093
+    protocol: kafka-secure
+    description: Test port for oauth 
+    security:
+      - streetlights_auth:
+         - streetlights:write
+         - streetlights:read
+    
+ 
 defaultContentType: application/json
 
 channels:
   smartylighting.streetlights.1.0.event.{streetlightId}.lighting.measured:
     description: The topic on which measured values may be produced and consumed.
+    servers:
+     - test  
     parameters:
       streetlightId:
         $ref: '#/components/parameters/streetlightId'
@@ -51,8 +54,10 @@ channels:
         - $ref: '#/components/operationTraits/kafka'
       message:
         $ref: '#/components/messages/lightMeasured'
-
+       
   smartylighting.streetlights.1.0.action.{streetlightId}.turn.on:
+    servers:
+     - test_oauth  
     parameters:
       streetlightId:
         $ref: '#/components/parameters/streetlightId'
@@ -62,8 +67,17 @@ channels:
         - $ref: '#/components/operationTraits/kafka'
       message:
         $ref: '#/components/messages/turnOnOff'
+      security:
+      # This operation level security implies the ability to subscribe to messages from
+      # \`smartylighting.streetlights.1.0.action.{streetlightId}.turn.on\` channel with Authorization headers 
+      # that have \`streetlights:read\` scope. Note that an operation level security must still satisfy 
+      # security requirements specified at the server level.
+        - streetlights_auth:
+          - streetlights:read  
 
   smartylighting.streetlights.1.0.action.{streetlightId}.turn.off:
+    servers:
+     - test_oauth  
     parameters:
       streetlightId:
         $ref: '#/components/parameters/streetlightId'
@@ -73,8 +87,16 @@ channels:
         - $ref: '#/components/operationTraits/kafka'
       message:
         $ref: '#/components/messages/turnOnOff'
-
+      security:
+      # This operation level security implies the ability to subscribe to messages from
+      # \`smartylighting.streetlights.1.0.action.{streetlightId}.turn.off\` channel with Authorization headers 
+      # that have \`streetlights:read\` scope. Note that an operation level security must still satisfy 
+      # security options specified at the server level.
+        - streetlights_auth:
+          - streetlights:read    
   smartylighting.streetlights.1.0.action.{streetlightId}.dim:
+    servers:
+     - test_oauth  
     parameters:
       streetlightId:
         $ref: '#/components/parameters/streetlightId'
@@ -84,6 +106,14 @@ channels:
         - $ref: '#/components/operationTraits/kafka'
       message:
         $ref: '#/components/messages/dimLight'
+      security:
+      # This operation level security implies the ability to subscribe to messages from
+      # \`smartylighting.streetlights.1.0.action.{streetlightId}.dim\` channel with Authorization headers 
+      # that have \`streetlights:read\` scope. Note that an operation level security must still satisfy 
+      # security options specified at the server level.
+        - streetlights_auth:
+          - streetlights:read  
+  
 
 components:
   messages:
@@ -153,6 +183,15 @@ components:
     saslScram:
       type: scramSha256
       description: Provide your username and password for SASL/SCRAM authentication
+    streetlights_auth:
+      type: oauth2
+      description: The oauth security descriptions
+      flows:
+       clientCredentials:
+        tokenUrl: 'https://example.com/api/oauth/dialog'
+        scopes:
+          streetlights:read: Scope required for subscribing to channel
+          streetlights:write: Scope required for publishing to channel
 
   parameters:
     streetlightId:
@@ -174,26 +213,32 @@ components:
     kafka:
       bindings:
         kafka:
-          clientId: my-app-id`);
+          clientId:
+            type: string
+            enum: ['my-app-id']
+`;
 
-      // set state with the result
-      setData(doc);
-    };
+function Asyncapi() {
+  const [document, setDocument] = useState(undefined);
 
-    // call the function
-    fetchData()
-      // make sure to catch any error
-      .catch(console.error);
+  useEffect(() => {
+    const parser = (window as any)['AsyncAPIParser'];
+    const fetchData = async () => setDocument(await parser.parse(asyncAPIDocument));
+    fetchData().catch(console.error);
   }, []);
-  let something;
-  if (data !== undefined) {
-    something = <ApplicationView>
-      <AsyncAPIApplication document={data} />
-    </ApplicationView>;
+
+  let node;
+  if (document !== undefined) {
+    node = (
+      <ApplicationView asyncapi={{ document }} />
+    );
   } else {
-    something = <h1>Not loaded</h1>;
+    node = <h1>Wait...</h1>;
   }
-  return <div className="App">{something}</div>;
+  
+  return (
+    <div className="App">{node}</div>
+  );
 }
 
 export default Asyncapi;

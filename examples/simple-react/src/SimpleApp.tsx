@@ -1,11 +1,9 @@
 import { ApplicationView } from '@lagoni/edavisualiser';
+import '@lagoni/edavisualiser/styles/default.css';
 
 function App() {
-  // Render on the browser only
-  if (typeof navigator === 'undefined') return null;
-
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div className="App">
       <ApplicationView 
         application={
           {

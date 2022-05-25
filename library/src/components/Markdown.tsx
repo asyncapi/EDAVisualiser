@@ -1,5 +1,5 @@
 import React from 'react';
-import { sanitize } from 'isomorphic-dompurify';
+import { sanitize } from 'dompurify';
 import { renderMarkdown } from '../helpers/marked';
 
 export const Markdown: React.FunctionComponent = ({ children }) => {

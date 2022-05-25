@@ -1,6 +1,7 @@
-// pages/_app.js
-import "@lagoni/edavisualiser/styles/default.min.css";
+import '@lagoni/edavisualiser/styles/default.css';
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
+
+export default MyApp
