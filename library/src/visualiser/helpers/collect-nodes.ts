@@ -1,7 +1,5 @@
 import { getUniqueConnectionId } from './relation-finder';
-import { ArrowHeadType } from 'react-flow-renderer';
-
-import { Node, Edge, FlowElement } from 'react-flow-renderer';
+import { Node, Edge, FlowElement, ArrowHeadType } from 'react-flow-renderer';
 import {
   ApplicationViewData,
   ApplicationFocusViewData,
