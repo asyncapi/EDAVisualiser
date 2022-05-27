@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/jonaslagoni/EDAVisualiser)](https://github.com/asyncapi/modelina/blob/master/LICENSE)
 [![last commit](https://img.shields.io/github/last-commit/jonaslagoni/EDAVisualiser)](https://github.com/asyncapi/modelina/commits/master)
 [![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%2Fjonaslagoni.github.io%2FEDAVisualiser)](https://jonaslagoni.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ---
@@ -70,6 +70,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
+  <tr>
+    <td align="center"><a href="https://github.com/jonaslagoni"><img src="https://avatars.githubusercontent.com/u/13396189?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonas Lagoni</b></sub></a><br /><a href="https://github.com/jonaslagoni/EDAVisualiser/commits?author=jonaslagoni" title="Code">💻</a> <a href="#ideas-jonaslagoni" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-jonaslagoni" title="Maintenance">🚧</a> <a href="https://github.com/jonaslagoni/EDAVisualiser/commits?author=jonaslagoni" title="Documentation">📖</a> <a href="#example-jonaslagoni" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/magicmatatjahu"><img src="https://avatars.githubusercontent.com/u/20404945?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maciej Urbańczyk</b></sub></a><br /><a href="https://github.com/jonaslagoni/EDAVisualiser/commits?author=magicmatatjahu" title="Code">💻</a> <a href="#ideas-magicmatatjahu" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-magicmatatjahu" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://boyney.io/"><img src="https://avatars.githubusercontent.com/u/3268013?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Boyne</b></sub></a><br /><a href="https://github.com/jonaslagoni/EDAVisualiser/commits?author=boyney123" title="Code">💻</a> <a href="#ideas-boyney123" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
@@ -79,4 +84,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-Special thanks to @magicmatatjahu for the react setup that allows the library to be offered to all frontend frameworks, and to @boyney123 for the initial visualization code that [first appeared in the AsyncAPI studio](https://github.com/asyncapi/studio/issues/261).
+Special thanks to [@magicmatatjahu](https://github.com/magicmatatjahu) for the react setup that allows the library to be offered to all frontend frameworks, and to [boyney123](https://github.com/boyney123) for the initial visualization code that [first appeared in the AsyncAPI studio](https://github.com/asyncapi/studio/issues/261).

@@ -1,0 +1,50 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jonaslagoni",
+      "name": "Jonas Lagoni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13396189?v=4",
+      "profile": "https://github.com/jonaslagoni",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance",
+        "doc",
+        "example"
+      ]
+    },
+    {
+      "login": "magicmatatjahu",
+      "name": "Maciej Urbańczyk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20404945?v=4",
+      "profile": "https://github.com/magicmatatjahu",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "boyney123",
+      "name": "David Boyne",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3268013?v=4",
+      "profile": "https://boyney.io/",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "EDAVisualiser",
+  "projectOwner": "jonaslagoni",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": false,
+  "commitConvention": "none"
+}
