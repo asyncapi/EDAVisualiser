@@ -21,11 +21,38 @@ https://user-images.githubusercontent.com/13396189/169362612-0b6129b6-09b6-4807-
 <!-- toc -->
 
 - [:loudspeaker: ATTENTION:](#loudspeaker-attention)
+- [EDAVisualiser](#edavisualiser)
+- [Inputs](#inputs)
+- [Views](#views)
 - [Installation](#installation)
-- [Documentation](#documentation)
 - [Contributors ✨](#contributors-)
 
 <!-- tocstop -->
+
+## EDAVisualiser
+EDAVisualiser is a visualization library to show various views revolving around your application. An Application is seen something that communicate with others through incoming and outgoing connections. This is what makes up the foundation for the views.  
+
+A view could for example be how a ["system" of applications are related](https://jonaslagoni.github.io/EDAVisualiser/social-media), [how a single application relate to others](https://jonaslagoni.github.io/EDAVisualiser/social-media/application/notification_service), only the fantasy sets the limitations, and [feel free to propose new ideas](https://github.com/jonaslagoni/EDAVisualiser/issues/new)!
+
+It is written in React, however, it also supports the most used frameworks such as [Vue](./examples/vue/) and [Angular](./examples/angular/), check out the [examples](./examples/) for concrete code examples.
+
+
+## Inputs
+The library uses a domain driven approach, meaning we don't assume one or the other input but build on top of a domain model that is specific for this problem we are trying to solve.
+
+| Input | Example | Description|
+|:---:|:---:|:---:|
+| [**AsyncAPI**](asyncapi.com/) | <a href="https://jonaslagoni.github.io/EDAVisualiser/asyncapi">Preview</a>, <a href="https://github.com/jonaslagoni/EDAVisualiser/blob/main/examples/simple-react/src/SimpleAsyncapi.tsx">code</a> | *Allows you to reuse pre-parsed AsyncAPI documents from the [official AsyncAPI parser](github.com/asyncapi/parser-js), underneath it splits up the AsyncAPI document into the core building blocks.* |
+| **Core building blocks** | <a href="https://jonaslagoni.github.io/EDAVisualiser/asyncapi">Preview</a>, <a href="https://github.com/jonaslagoni/EDAVisualiser/blob/main/examples/simple-react/src/SimpleApp.tsx">code</a> | *The core building blocks that is the domain abstraction for inputs, is what any other input type is converted to.* |
+
+
+## Views
+
+| View | Example | Description|
+|:---:|:---:|:---:|
+| **ApplicationFocusView** | <a href="https://jonaslagoni.github.io/EDAVisualiser/social-media/application/notification_service"><img src="./docs/img/applicationFocusView.png" /></a> | *Puts a single application in focus as part of a larger system. Used to figure out who are "connected" to the application* |
+| **ApplicationView** | <a href="https://jonaslagoni.github.io/EDAVisualiser/"><img src="./docs/img/applicationView.png" /></a> | *Puts a single application is focus.* |
+| **SystemView** | <a href="https://jonaslagoni.github.io/EDAVisualiser/social-media"><img src="./docs/img/systemView.png" /></a> | *Puts the system/collection of application in focus to figure out how they are all connected.* |
 
 ## Installation
 
@@ -34,17 +61,6 @@ Run this command to install the visualiser in your project:
 ```bash
 npm install @lagoni/edavisualiser
 ```
-
-## Documentation
-The library is made up of 4 components:
-
-[Views](./docs/views.md) wraps the building blocks into a specific use-case.
-
-[Layouts](./docs/layouts.md) specifies the layout of building blocks within the view.
-
-[Building blocks](./docs/building-blocks.md) enables you to build the visualiser in any scenario you have.
-
-[Wrappers](./docs/wrappers.md) make it possible to create out of the box wrappers of the core building blocks that enable easier use in external specification, tools, etc.
 
 ## Contributors ✨
 
@@ -62,3 +78,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+Special thanks to @magicmatatjahu for the react setup that allows the library to be offered to all frontend frameworks, and to @boyney123 for the initial visualization code that [first appeared in the AsyncAPI studio](https://github.com/asyncapi/studio/issues/261).
