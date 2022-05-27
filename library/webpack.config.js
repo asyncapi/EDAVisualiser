@@ -4,8 +4,10 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 const umdBundle = {
   entry: {
-    Application: './src/components/nodes/Application.tsx',
     ApplicationView: './src/visualiser/react-flow-renderer/ApplicationView.tsx',
+    ApplicationFocusView:
+      './src/visualiser/react-flow-renderer/ApplicationFocusView.tsx',
+    SystemView: './src/visualiser/react-flow-renderer/SystemView.tsx',
   },
   target: 'web',
   mode: 'production',
@@ -48,8 +50,51 @@ const umdBundle = {
   plugins: [],
 };
 
+const standaloneBundle = {
+  entry: {
+    index: './src/standalone.ts',
+  },
+  target: 'web',
+  mode: 'production',
+
+  output: {
+    path: path.resolve(__dirname, 'browser/standalone'),
+    filename: '[name].js',
+    library: 'EDAVisualiserStandalone',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+    umdNamedDefine: true,
+    globalObject: `(typeof self !== 'undefined' ? self : this)`,
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          configFile: 'tsconfig.esm.json',
+          transpileOnly: true,
+        },
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
+
+  plugins: [
+    /**
+     * Uncomment plugin when you wanna see dependency map of bundled package
+     */
+    // new BundleAnalyzerPlugin(),
+  ],
+};
+
 const bundles = [];
 
 process.env['BUILD_MODE'] === 'umd' && bundles.push(umdBundle);
+process.env['BUILD_MODE'] === 'standalone' && bundles.push(standaloneBundle);
 
 module.exports = bundles;
