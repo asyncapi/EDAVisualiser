@@ -84,4 +84,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-Special thanks to [@magicmatatjahu](https://github.com/magicmatatjahu) for the react setup that allows the library to be offered to all frontend frameworks, and to [boyney123](https://github.com/boyney123) for the initial visualization code that [first appeared in the AsyncAPI studio](https://github.com/asyncapi/studio/issues/261).
+Special thanks to [@magicmatatjahu](https://github.com/magicmatatjahu) for the react setup that allows the library to be offered to all frontend frameworks, and to [@boyney123](https://github.com/boyney123) for the initial visualization code that [first appeared in the AsyncAPI studio](https://github.com/asyncapi/studio/issues/261).
