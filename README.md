@@ -2,7 +2,8 @@
 ![Maintenance score](https://img.shields.io/npms-io/maintenance-score/@asyncapi/modelina)
 [![Npm latest version](https://img.shields.io/npm/v/@lagoni/edavisualiser)](https://www.npmjs.com/package/@lagoni/edavisualiser)
 [![License](https://img.shields.io/github/license/jonaslagoni/EDAVisualiser)](https://github.com/asyncapi/modelina/blob/master/LICENSE)
-[![last commit](https://img.shields.io/github/last-commit/jonaslagoni/EDAVisualiser)](https://github.com/asyncapi/modelina/commits/master) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![last commit](https://img.shields.io/github/last-commit/jonaslagoni/EDAVisualiser)](https://github.com/asyncapi/modelina/commits/master)
+[![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%2Fjonaslagoni.github.io%2FEDAVisualiser)](https://jonaslagoni.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -32,10 +33,7 @@ https://user-images.githubusercontent.com/13396189/169362612-0b6129b6-09b6-4807-
 ## EDAVisualiser
 EDAVisualiser is a visualization library to show various views revolving around your application. An Application is seen something that communicate with others through incoming and outgoing connections. This is what makes up the foundation for the views.  
 
-A view could for example be how a ["system" of applications are related](https://jonaslagoni.github.io/EDAVisualiser/social-media), [how a single application relate to others](https://jonaslagoni.github.io/EDAVisualiser/social-media/application/notification_service), only the fantasy sets the limitations, and [feel free to propose new ideas](https://github.com/jonaslagoni/EDAVisualiser/issues/new)!
-
 It is written in React, however, it also supports the most used frameworks such as [Vue](./examples/vue/) and [Angular](./examples/angular/), check out the [examples](./examples/) for concrete code examples.
-
 
 ## Inputs
 The library uses a domain driven approach, meaning we don't assume one or the other input but build on top of a domain model that is specific for this problem we are trying to solve.
@@ -47,6 +45,8 @@ The library uses a domain driven approach, meaning we don't assume one or the ot
 
 
 ## Views
+
+A view could for example be how a ["system" of applications are related](https://jonaslagoni.github.io/EDAVisualiser/social-media), [how a single application relate to others](https://jonaslagoni.github.io/EDAVisualiser/social-media/application/notification_service), only the fantasy sets the limitations, and [feel free to propose new ideas](https://github.com/jonaslagoni/EDAVisualiser/issues/new)!
 
 | View | Example | Description|
 |:---:|:---:|:---:|
