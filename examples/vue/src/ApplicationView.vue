@@ -1,6 +1,6 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <div style="width: 100vw;height: 100vh;" ref="asyncapi"></div>
+  <div style="width:100vw;height:100vh;" ref="asyncapi"></div>
 </template>
 
 <script>
@@ -50,7 +50,7 @@ export default {
   name: 'App',
   mounted() {
     const container = this.$refs.asyncapi;
-    StandaloneRenderer.renderApplicationView({ ...props }, container);
+    StandaloneRenderer.renderApplicationView(props, container);
   }
 }
 </script>

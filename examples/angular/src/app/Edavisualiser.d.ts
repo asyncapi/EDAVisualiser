@@ -1,0 +1,1 @@
+declare module '@lagoni/edavisualiser/browser/standalone';
