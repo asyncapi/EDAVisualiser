@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu } from './Menu';
+import { Menu } from './menu';
 import { useParams } from 'react-router-dom';
 import { ApplicationFocusView } from '@lagoni/edavisualiser';
 import { apps } from './apps';

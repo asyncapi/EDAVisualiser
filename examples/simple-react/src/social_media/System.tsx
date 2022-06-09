@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { SystemView } from '@lagoni/edavisualiser';
-import { Menu } from './Menu';
+import { Menu } from './menu';
 import { apps } from './apps';
 import '@asyncapi/parser/dist/bundle';
 
