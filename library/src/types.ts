@@ -114,3 +114,10 @@ export interface OutgoingNodeProps {
 export interface LayoutProps {
   elementsToRender: FlowElement[];
 }
+
+export type EdgeType =
+  | 'smoothstep'
+  | 'step'
+  | 'straight'
+  | 'floating'
+  | 'default';

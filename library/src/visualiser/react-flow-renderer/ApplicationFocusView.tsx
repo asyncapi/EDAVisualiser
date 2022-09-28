@@ -11,7 +11,7 @@ import nodeTypes from '../../components/react-flow-renderer-nodes';
 import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
 import { collectApplicationFocusNodes } from '../helpers/collect-nodes';
 
-import { ApplicationFocusViewData, LayoutProps } from '../../types';
+import { ApplicationFocusViewData, EdgeType, LayoutProps } from '../../types';
 
 const edgeTypes: EdgeTypesType = {
   floating: FloatingEdge,
@@ -23,6 +23,7 @@ export interface ApplicationFocusViewProps extends ApplicationFocusViewData {
   ) => React.JSXElementConstructor<LayoutProps>;
   sideMenu?: () => React.JSXElementConstructor<any>;
   includeControls?: boolean;
+  edgeType?: EdgeType;
 }
 
 export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewProps> = ({
@@ -44,15 +45,19 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
     );
   },
   includeControls = false,
+  edgeType = 'smoothstep',
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const elements = collectApplicationFocusNodes({
-    asyncapi,
-    application,
-    external,
-    incomingOperations,
-    outgoingOperations,
-  });
+  const elements = collectApplicationFocusNodes(
+    {
+      asyncapi,
+      application,
+      external,
+      incomingOperations,
+      outgoingOperations,
+    },
+    edgeType,
+  );
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);

@@ -11,7 +11,7 @@ import nodeTypes from '../../components/react-flow-renderer-nodes';
 import FloatingConnectionLine from '../../components/react-flow-renderer-nodes/FloatingConnectionLine';
 import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
 import { collectSystemNodes } from '../helpers/collect-nodes';
-import { LayoutProps, SystemViewData } from '../../types';
+import { EdgeType, LayoutProps, SystemViewData } from '../../types';
 
 const edgeTypes: EdgeTypesType = {
   floating: FloatingEdge,
@@ -23,6 +23,7 @@ export interface SystemViewProps extends SystemViewData {
   ) => React.JSXElementConstructor<LayoutProps>;
   sideMenu?: () => React.JSXElementConstructor<any>;
   includeControls?: boolean;
+  edgeType?: EdgeType;
 }
 
 export const SystemView: React.FunctionComponent<SystemViewProps> = ({
@@ -40,9 +41,10 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
     );
   },
   includeControls = false,
+  edgeType = 'floating',
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const elements = collectSystemNodes({ applications });
+  const elements = collectSystemNodes({ applications }, edgeType);
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);

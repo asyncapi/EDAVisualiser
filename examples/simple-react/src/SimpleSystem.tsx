@@ -5,6 +5,7 @@ function App() {
     <div className="App">
       <SystemView
         includeControls={true}
+        edgeType={'smoothstep'}
         applications={[
           {
             application: {

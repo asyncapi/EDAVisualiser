@@ -10,43 +10,50 @@ import {
   ApplicationServerData,
   MessageData,
   SystemViewData,
+  EdgeType,
 } from '../../types';
 
-export function collectApplicationNodes({
-  asyncapi,
-  application,
-  incomingOperations,
-  outgoingOperations,
-}: ApplicationViewData): Array<FlowElement> {
+export function collectApplicationNodes(
+  {
+    asyncapi,
+    application,
+    incomingOperations,
+    outgoingOperations,
+  }: ApplicationViewData,
+  edgeType: EdgeType = 'smoothstep',
+): Array<FlowElement> {
   const nodes: Array<FlowElement> = [];
 
   if (asyncapi) {
-    nodes.push(...collectAsyncAPINodes(asyncapi));
+    nodes.push(...collectAsyncAPINodes(asyncapi, { edgeType }));
   } else if (application) {
     nodes.push(...createApplicationNode(application));
   }
 
   if (incomingOperations) {
     incomingOperations.forEach(op => {
-      nodes.push(...createIncomingNode(op));
+      nodes.push(...createIncomingNode(op, edgeType));
     });
   }
   if (outgoingOperations) {
     outgoingOperations.forEach(op => {
-      nodes.push(...createOutgoingNode(op));
+      nodes.push(...createOutgoingNode(op, edgeType));
     });
   }
 
   return nodes;
 }
 
-export function collectApplicationFocusNodes({
-  asyncapi,
-  application,
-  external,
-  incomingOperations,
-  outgoingOperations,
-}: ApplicationFocusViewData): Array<FlowElement> {
+export function collectApplicationFocusNodes(
+  {
+    asyncapi,
+    application,
+    external,
+    incomingOperations,
+    outgoingOperations,
+  }: ApplicationFocusViewData,
+  edgeType: EdgeType = 'smoothstep',
+): Array<FlowElement> {
   const nodes: Array<FlowElement> = [];
   const leadApplicationIncomingChannels: string[] = [];
   const leadApplicationOutgoingChannels: string[] = [];
@@ -54,20 +61,20 @@ export function collectApplicationFocusNodes({
   if (asyncapi) {
     const createIncomingNodeFn = (data: IncomingNodeData) => {
       leadApplicationIncomingChannels.push(data.id);
-      return createIncomingNode(data);
+      return createIncomingNode(data, edgeType);
     };
     const createOutgoingNodeFn = (data: OutgoingNodeData) => {
       leadApplicationOutgoingChannels.push(data.id);
-      return createOutgoingNode(data);
+      return createOutgoingNode(data, edgeType);
     };
 
     nodes.push(
-      ...collectAsyncAPINodes(
-        asyncapi,
-        createApplicationNode,
+      ...collectAsyncAPINodes(asyncapi, {
+        createApplicationNodeFn: createApplicationNode,
         createIncomingNodeFn,
         createOutgoingNodeFn,
-      ),
+        edgeType,
+      }),
     );
   } else if (application) {
     nodes.push(...createApplicationNode(application));
@@ -75,13 +82,13 @@ export function collectApplicationFocusNodes({
 
   if (incomingOperations) {
     incomingOperations.forEach(op => {
-      nodes.push(...createIncomingNode(op));
+      nodes.push(...createIncomingNode(op, edgeType));
       leadApplicationIncomingChannels.push(op.id);
     });
   }
   if (outgoingOperations) {
     outgoingOperations.forEach(op => {
-      nodes.push(...createOutgoingNode(op));
+      nodes.push(...createOutgoingNode(op, edgeType));
       leadApplicationOutgoingChannels.push(op.id);
     });
   }
@@ -106,12 +113,12 @@ export function collectApplicationFocusNodes({
     external.forEach(externalApp => {
       if (externalApp.asyncapi) {
         nodes.push(
-          ...collectAsyncAPINodes(
-            externalApp.asyncapi,
-            createExternalApplicationNode,
+          ...collectAsyncAPINodes(externalApp.asyncapi, {
+            createApplicationNodeFn: createExternalApplicationNode,
             createIncomingNodeFn,
             createOutgoingNodeFn,
-          ),
+            edgeType,
+          }),
         );
       } else if (externalApp.application) {
         nodes.push(...createExternalApplicationNode(externalApp.application));
@@ -129,9 +136,10 @@ export function collectApplicationFocusNodes({
   return nodes;
 }
 
-export function collectSystemNodes({
-  applications = [],
-}: SystemViewData): Array<FlowElement> {
+export function collectSystemNodes(
+  { applications = [] }: SystemViewData,
+  edgeType: EdgeType = 'floating',
+): Array<FlowElement> {
   const nodes: Array<FlowElement> = [];
   const outgoingConnections: { [key: string]: string[] } = {};
   const incomingConnections: { [key: string]: string[] } = {};
@@ -158,12 +166,12 @@ export function collectSystemNodes({
 
   applications.forEach(app => {
     if (app.asyncapi) {
-      collectAsyncAPINodes(
-        app.asyncapi,
+      collectAsyncAPINodes(app.asyncapi, {
         createApplicationNodeFn,
         createOutgoingNodeFn,
         createIncomingNodeFn,
-      );
+        edgeType,
+      });
     } else if (app.application) {
       nodes.push(...createApplicationNode(app.application));
     }
@@ -182,7 +190,7 @@ export function collectSystemNodes({
         for (const incomingApp of incomingConnections[uniqueChannel]) {
           const edge = {
             id: `${appId}-to-${incomingApp}`,
-            type: 'floating',
+            type: edgeType,
             style: { stroke: 'orange', strokeWidth: 4 },
             source: appId,
             target: incomingApp,
@@ -196,11 +204,19 @@ export function collectSystemNodes({
   return nodes;
 }
 
-export function collectAsyncAPINodes(
+function collectAsyncAPINodes(
   { document, topExtended }: AsyncapiApplicationData,
-  createApplicationNodeFn: typeof createApplicationNode = createApplicationNode,
-  createIncomingNodeFn: typeof createIncomingNode = createIncomingNode,
-  createOutgoingNodeFn: typeof createOutgoingNode = createOutgoingNode,
+  {
+    createApplicationNodeFn = createApplicationNode,
+    createIncomingNodeFn = createIncomingNode,
+    createOutgoingNodeFn = createOutgoingNode,
+    edgeType = 'floating',
+  }: {
+    createApplicationNodeFn?: typeof createApplicationNode;
+    createIncomingNodeFn?: typeof createIncomingNode;
+    createOutgoingNodeFn?: typeof createOutgoingNode;
+    edgeType?: EdgeType;
+  },
 ): Array<FlowElement> {
   const nodes: Array<FlowElement> = [];
   const documentTitle = document.info().title();
@@ -216,13 +232,16 @@ export function collectAsyncAPINodes(
         });
 
       nodes.push(
-        ...createIncomingNodeFn({
-          id: `incoming_${channelId}`,
-          channel: channelPath,
-          description: channel.description() || 'No description',
-          messages,
-          forApplication: documentTitle,
-        }),
+        ...createIncomingNodeFn(
+          {
+            id: `incoming_${channelId}`,
+            channel: channelPath,
+            description: channel.description() || 'No description',
+            messages,
+            forApplication: documentTitle,
+          },
+          edgeType,
+        ),
       );
     } else if (channel.hasSubscribe()) {
       const messages: MessageData[] = channel
@@ -233,13 +252,16 @@ export function collectAsyncAPINodes(
         });
 
       nodes.push(
-        ...createOutgoingNodeFn({
-          id: `outgoing_${channelId}`,
-          channel: channelPath,
-          description: channel.description() || 'No description',
-          messages,
-          forApplication: documentTitle,
-        }),
+        ...createOutgoingNodeFn(
+          {
+            id: `outgoing_${channelId}`,
+            channel: channelPath,
+            description: channel.description() || 'No description',
+            messages,
+            forApplication: documentTitle,
+          },
+          edgeType,
+        ),
       );
     }
   }
@@ -323,7 +345,10 @@ export function createExternalApplicationNode(
   return [externalOutgoing, externalIncoming];
 }
 
-export function createIncomingNode(data: IncomingNodeData): Array<FlowElement> {
+export function createIncomingNode(
+  data: IncomingNodeData,
+  edgeType: EdgeType,
+): Array<FlowElement> {
   const appId = data.forApplication || '';
   const incomingNode: Node = {
     id: data.id,
@@ -333,7 +358,7 @@ export function createIncomingNode(data: IncomingNodeData): Array<FlowElement> {
   };
   const connectionEdge: Edge = {
     id: `incoming-${appId}-${data.id}`,
-    type: 'smoothstep',
+    type: edgeType,
     style: { stroke: '#7ee3be', strokeWidth: 4 },
     target: appId,
     source: data.id,
@@ -357,7 +382,10 @@ export function createExternalIncomingNode(
   ] as Edge[];
 }
 
-export function createOutgoingNode(data: OutgoingNodeData): Array<FlowElement> {
+export function createOutgoingNode(
+  data: OutgoingNodeData,
+  edgeType: EdgeType,
+): Array<FlowElement> {
   const appId = data.forApplication || '';
   const outgoingNode: Node = {
     id: data.id,
@@ -367,7 +395,7 @@ export function createOutgoingNode(data: OutgoingNodeData): Array<FlowElement> {
   };
   const connectionEdge: Edge = {
     id: `outgoing-${appId}-${data.id}`,
-    type: 'smoothstep',
+    type: edgeType,
     style: { stroke: 'orange', strokeWidth: 4 },
     source: appId,
     target: data.id,

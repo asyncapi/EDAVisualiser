@@ -4,11 +4,17 @@ import ReactFlow, {
   BackgroundVariant,
   FlowElement,
   Controls,
+  EdgeTypesType,
 } from 'react-flow-renderer';
 import { ColumnLayout } from '../../components/layouts';
 import { collectApplicationNodes } from '../helpers/collect-nodes';
 import nodeTypes from '../../components/react-flow-renderer-nodes';
-import { ApplicationViewData, LayoutProps } from '../../types';
+import { ApplicationViewData, EdgeType, LayoutProps } from '../../types';
+import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
+
+const edgeTypes: EdgeTypesType = {
+  floating: FloatingEdge,
+};
 
 export interface ApplicationViewProps extends ApplicationViewData {
   layout?: (
@@ -16,6 +22,7 @@ export interface ApplicationViewProps extends ApplicationViewData {
   ) => React.JSXElementConstructor<LayoutProps>;
   sideMenu?: () => React.JSXElementConstructor<any>;
   includeControls?: boolean;
+  edgeType?: EdgeType;
 }
 
 export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
@@ -36,14 +43,18 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
     );
   },
   includeControls = false,
+  edgeType = 'smoothstep',
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const elements = collectApplicationNodes({
-    asyncapi,
-    application,
-    incomingOperations,
-    outgoingOperations,
-  });
+  const elements = collectApplicationNodes(
+    {
+      asyncapi,
+      application,
+      incomingOperations,
+      outgoingOperations,
+    },
+    edgeType,
+  );
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);
@@ -61,6 +72,7 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
         elements={elements}
         minZoom={0.1}
         onLoad={handleLoaded}
+        edgeTypes={edgeTypes}
       >
         <Background
           color="#d1d1d3"
