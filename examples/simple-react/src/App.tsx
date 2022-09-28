@@ -1,10 +1,10 @@
 import { Switch, Route, Link } from 'react-router-dom';
-import SimpleApp from './simpleApp';
-import SimpleSystem from './simpleSystem';
-import SimpleAsyncapi from './simpleAsyncapi';
-import GamingapiSystem from './gamingapi/system';
+import SimpleApp from './SimpleApp';
+import SimpleSystem from './SimpleSystem';
+import SimpleAsyncapi from './SimpleAsyncapi';
+import GamingapiSystem from './gamingapi/System';
 import GamingapiApplication from './gamingapi/application';
-import SocialMediaSystem from './social_media/system';
+import SocialMediaSystem from './social_media/System';
 import SocialMediaApplication from './social_media/application';
 
 export const App = () => {

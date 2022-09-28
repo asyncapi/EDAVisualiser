@@ -3,7 +3,6 @@ import { SystemView } from '@lagoni/edavisualiser';
 import { Menu } from './menu';
 import { apps } from './apps';
 import '@asyncapi/parser/dist/bundle';
-
 import '@lagoni/edavisualiser/styles/default.css';
 
 function Asyncapi() {
@@ -27,6 +26,7 @@ function Asyncapi() {
   if (asyncapiDocuments.length > 0) {
     node = (
       <SystemView 
+        includeControls={true}
         sideMenu={() => Menu}
         applications={asyncapiDocuments.map(({ parsedDoc, name }) => {
           return {

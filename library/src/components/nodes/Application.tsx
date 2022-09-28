@@ -23,7 +23,7 @@ export const Application: React.FunctionComponent<ApplicationProps> = props => {
       return React.cloneElement(child, {
         forApplication: applicationNodeData.id,
         internal: props.internal,
-      });
+      } as any);
     }
     return child;
   });

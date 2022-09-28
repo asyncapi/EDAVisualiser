@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
+  Controls,
   EdgeTypesType,
   FlowElement,
 } from 'react-flow-renderer';
@@ -10,7 +11,6 @@ import nodeTypes from '../../components/react-flow-renderer-nodes';
 import FloatingConnectionLine from '../../components/react-flow-renderer-nodes/FloatingConnectionLine';
 import FloatingEdge from '../../components/react-flow-renderer-nodes/FloatingEdge';
 import { collectSystemNodes } from '../helpers/collect-nodes';
-
 import { LayoutProps, SystemViewData } from '../../types';
 
 const edgeTypes: EdgeTypesType = {
@@ -22,6 +22,7 @@ export interface SystemViewProps extends SystemViewData {
     elements: FlowElement[],
   ) => React.JSXElementConstructor<LayoutProps>;
   sideMenu?: () => React.JSXElementConstructor<any>;
+  includeControls?: boolean;
 }
 
 export const SystemView: React.FunctionComponent<SystemViewProps> = ({
@@ -38,6 +39,7 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
       </div>
     );
   },
+  includeControls = false,
 }) => {
   const [loaded, setLoaded] = useState(false);
   const elements = collectSystemNodes({ applications });
@@ -69,6 +71,7 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
           className="bg-gray-200"
         />
         {loaded && layoutElement}
+        {includeControls && <Controls />}
       </ReactFlow>
       {sideMenu()}
     </section>

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { ApplicationFocusView } from '@lagoni/edavisualiser';
 import '@asyncapi/parser/dist/bundle';
 import { apps } from './apps';
-
 import '@lagoni/edavisualiser/styles/default.css';
 
 function Asyncapi() {

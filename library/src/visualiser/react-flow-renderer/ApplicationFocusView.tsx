@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
+  Controls,
   EdgeTypesType,
   FlowElement,
 } from 'react-flow-renderer';
@@ -21,6 +22,7 @@ export interface ApplicationFocusViewProps extends ApplicationFocusViewData {
     elements: FlowElement[],
   ) => React.JSXElementConstructor<LayoutProps>;
   sideMenu?: () => React.JSXElementConstructor<any>;
+  includeControls?: boolean;
 }
 
 export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewProps> = ({
@@ -41,6 +43,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
       </div>
     );
   },
+  includeControls = false,
 }) => {
   const [loaded, setLoaded] = useState(false);
   const elements = collectApplicationFocusNodes({
@@ -77,6 +80,7 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
           className="bg-gray-200"
         />
         {loaded && layoutElement}
+        {includeControls && <Controls />}
       </ReactFlow>
       {sideMenu()}
     </section>

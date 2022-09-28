@@ -27,7 +27,11 @@ export function createRender<P>(component: any) {
       return;
     }
 
-    renderComponent(React.createElement(component, props), container, callback);
+    renderComponent(
+      React.createElement(component, props as any),
+      container,
+      callback,
+    );
   };
 }
 
@@ -48,7 +52,7 @@ export function createHydrate<P>(component: any) {
     }
 
     hydrateComponent(
-      React.createElement(component, props),
+      React.createElement(component, props as any),
       container,
       callback,
     );

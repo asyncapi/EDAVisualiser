@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { SystemView } from '@lagoni/edavisualiser';
 import { apps } from './apps';
 import '@asyncapi/parser/dist/bundle';
-
 import '@lagoni/edavisualiser/styles/default.css';
 
 function Asyncapi() {

@@ -36,7 +36,7 @@ EDAVisualiser is a visualization library to show various views revolving around 
 It is written in React, however, it also supports the most used frameworks such as [Vue](./examples/vue/) and [Angular](./examples/angular/), check out the [examples](./examples/) for concrete code examples.
 
 ## Inputs
-The library uses a domain driven approach, meaning we don't assume one or the other input but build on top of a domain model that is specific for this problem we are trying to solve.
+The library uses a domain-driven approach, meaning we don't assume one or the other input but build on top of a domain model that is specific for this problem we are trying to solve.
 
 | Input | Example | Description|
 |:---:|:---:|:---:|
@@ -56,15 +56,14 @@ A view could for example be how a ["system" of applications are related](https:/
 
 ## Installation
 
-Run this command to install the visualiser in your project:
+Run this command to install the visualizer in your project:
 
 ```bash
 npm install @lagoni/edavisualiser
 ```
 
 ## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks go to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->

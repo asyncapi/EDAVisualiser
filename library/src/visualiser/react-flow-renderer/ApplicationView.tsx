@@ -3,11 +3,11 @@ import ReactFlow, {
   Background,
   BackgroundVariant,
   FlowElement,
+  Controls,
 } from 'react-flow-renderer';
 import { ColumnLayout } from '../../components/layouts';
 import { collectApplicationNodes } from '../helpers/collect-nodes';
 import nodeTypes from '../../components/react-flow-renderer-nodes';
-
 import { ApplicationViewData, LayoutProps } from '../../types';
 
 export interface ApplicationViewProps extends ApplicationViewData {
@@ -15,6 +15,7 @@ export interface ApplicationViewProps extends ApplicationViewData {
     elements: FlowElement[],
   ) => React.JSXElementConstructor<LayoutProps>;
   sideMenu?: () => React.JSXElementConstructor<any>;
+  includeControls?: boolean;
 }
 
 export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
@@ -34,6 +35,7 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
       </div>
     );
   },
+  includeControls = false,
 }) => {
   const [loaded, setLoaded] = useState(false);
   const elements = collectApplicationNodes({
@@ -68,6 +70,7 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
           className="bg-gray-200"
         />
         {loaded && layoutElement}
+        {includeControls && <Controls />}
       </ReactFlow>
       {sideMenu()}
     </section>
