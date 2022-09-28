@@ -120,4 +120,6 @@ export type EdgeType =
   | 'step'
   | 'straight'
   | 'floating'
-  | 'default';
+  | 'default'
+  | 'simplebezier'
+  | 'animated';

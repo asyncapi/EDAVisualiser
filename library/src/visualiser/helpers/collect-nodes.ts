@@ -190,7 +190,9 @@ export function collectSystemNodes(
         for (const incomingApp of incomingConnections[uniqueChannel]) {
           const edge = {
             id: `${appId}-to-${incomingApp}`,
-            type: edgeType,
+            ...(edgeType !== 'animated'
+              ? { type: edgeType }
+              : { animated: true }),
             style: { stroke: 'orange', strokeWidth: 4 },
             source: appId,
             target: incomingApp,
@@ -358,7 +360,7 @@ export function createIncomingNode(
   };
   const connectionEdge: Edge = {
     id: `incoming-${appId}-${data.id}`,
-    type: edgeType,
+    ...(edgeType !== 'animated' ? { type: edgeType } : { animated: true }),
     style: { stroke: '#7ee3be', strokeWidth: 4 },
     target: appId,
     source: data.id,
@@ -395,7 +397,7 @@ export function createOutgoingNode(
   };
   const connectionEdge: Edge = {
     id: `outgoing-${appId}-${data.id}`,
-    type: edgeType,
+    ...(edgeType !== 'animated' ? { type: edgeType } : { animated: true }),
     style: { stroke: 'orange', strokeWidth: 4 },
     source: appId,
     target: data.id,

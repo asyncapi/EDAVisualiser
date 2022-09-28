@@ -230,7 +230,7 @@ function Asyncapi() {
   let node;
   if (document !== undefined) {
     node = (
-      <ApplicationView asyncapi={{ document }} edgeType={'default'} />
+      <ApplicationView asyncapi={{ document }} edgeType={'animated'} />
     );
   } else {
     node = <h1>Wait...</h1>;
