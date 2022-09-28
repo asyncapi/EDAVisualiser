@@ -1,7 +1,0 @@
-diff a/library/src/visualiser/react-flow-renderer/ApplicationView.tsx b/library/src/visualiser/react-flow-renderer/ApplicationView.tsx	(rejected hunks)
-@@ -6 +6 @@ import ReactFlow, {
--  Controls
-+  Controls,
-@@ -38 +38 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
--  includeControls = false
-+  includeControls = false,

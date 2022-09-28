@@ -1,7 +1,0 @@
-diff a/library/src/visualiser/react-flow-renderer/SystemView.tsx b/library/src/visualiser/react-flow-renderer/SystemView.tsx	(rejected hunks)
-@@ -42 +42 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
--  includeControls = false
-+  includeControls = false,
-@@ -74 +74 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
--        {includeControls && <Controls/>}
-+        {includeControls && <Controls />}
