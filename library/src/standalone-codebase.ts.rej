@@ -1,0 +1,8 @@
+diff a/library/src/standalone-codebase.ts b/library/src/standalone-codebase.ts	(rejected hunks)
+@@ -30 +30,5 @@ export function createRender<P>(component: any) {
+-    renderComponent(React.createElement(component, props as any), container, callback);
++    renderComponent(
++      React.createElement(component, props as any),
++      container,
++      callback,
++    );

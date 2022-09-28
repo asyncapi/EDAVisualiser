@@ -1,0 +1,4 @@
+diff a/library/src/visualiser/react-flow-renderer/ApplicationFocusView.tsx b/library/src/visualiser/react-flow-renderer/ApplicationFocusView.tsx	(rejected hunks)
+@@ -46 +46 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
+-  includeControls = false
++  includeControls = false,
