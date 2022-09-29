@@ -27,7 +27,7 @@ function Asyncapi() {
     node = (
       <SystemView 
         includeControls={true}
-        sideMenu={() => Menu}
+        sideMenu={() => <Menu/> as any}
         applications={asyncapiDocuments.map(({ parsedDoc, name }) => {
           return {
             asyncapi: {

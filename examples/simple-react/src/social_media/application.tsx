@@ -35,7 +35,7 @@ function Asyncapi() {
   if (externalApplications.length > 0 && focusedApplication !== undefined) {
     node = (
       <ApplicationFocusView
-        sideMenu={() => Menu}
+        sideMenu={() => <Menu/> as any}
         asyncapi={{ document: focusedApplication.parsedDoc }}
         external={externalApplications.map(({ parsedDoc, name }) => {
           return {
