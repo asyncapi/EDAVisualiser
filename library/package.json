@@ -1,16 +1,16 @@
 {
-  "name": "@lagoni/edavisualiser",
+  "name": "@asyncapi/EDAVisualiser",
   "version": "1.0.1",
   "private": false,
   "description": "A React flow library for visualizing event driven architectures.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonaslagoni/EDAVisualiser"
+    "url": "git+https://github.com/asyncapi/EDAVisualiser"
   },
   "author": "Jonas Lagoni (jonas-lt@live.dk)",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jonaslagoni/EDAVisualiser/issues"
+    "url": "https://github.com/asyncapi/EDAVisualiser/issues"
   },
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

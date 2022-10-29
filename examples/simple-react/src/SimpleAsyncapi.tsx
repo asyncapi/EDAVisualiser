@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ApplicationView } from '@lagoni/edavisualiser';
-import '@lagoni/edavisualiser/styles/default.css';
+import { ApplicationView } from '@asyncapi/EDAVisualiser';
+import '@asyncapi/EDAVisualiser/styles/default.css';
 import '@asyncapi/parser/dist/bundle';
 
 const asyncAPIDocument = `

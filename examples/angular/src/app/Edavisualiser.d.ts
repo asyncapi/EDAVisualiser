@@ -1,1 +1,1 @@
-declare module '@lagoni/edavisualiser/browser/standalone';
+declare module '@asyncapi/EDAVisualiser/browser/standalone';

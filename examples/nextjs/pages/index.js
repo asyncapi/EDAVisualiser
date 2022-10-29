@@ -1,4 +1,4 @@
-import { ApplicationView } from '@lagoni/edavisualiser';
+import { ApplicationView } from '@asyncapi/EDAVisualiser';
 
 function App() {
   // Render on the browser only

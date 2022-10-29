@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { SystemView } from '@lagoni/edavisualiser';
+import { SystemView } from '@asyncapi/EDAVisualiser';
 import { Menu } from './menu';
 import { apps } from './apps';
 import '@asyncapi/parser/dist/bundle';
-import '@lagoni/edavisualiser/styles/default.css';
+import '@asyncapi/EDAVisualiser/styles/default.css';
 
 function Asyncapi() {
   const [asyncapiDocuments, setAsyncapiDocuments] = useState<Array<{ parsedDoc: any, name: string }>>([]);
