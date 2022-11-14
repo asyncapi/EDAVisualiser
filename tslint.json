@@ -42,7 +42,8 @@
       "examples/**",
       "library/browser/**",
       "library/*.config.js",
-      "library/*.config.js"
+      "library/*.config.js",
+      "library/test"
     ]
   },
   "ban-types": [

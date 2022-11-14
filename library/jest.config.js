@@ -5,7 +5,7 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
 
-  rootDir: 'src',
+  roots: ['<rootDir>'],
   testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
 
   globals: {
@@ -13,6 +13,6 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
-  setupFiles: ['<rootDir>/../test-shim.js', '<rootDir>/../test-setup.js'],
+  setupFiles: ['<rootDir>/test-shim.js', '<rootDir>/test-setup.js'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
 };
