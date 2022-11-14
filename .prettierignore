@@ -20,3 +20,5 @@ lerna-debug.log*
 /**/*.tgz
 
 examples
+
+.github
