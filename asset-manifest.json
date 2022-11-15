@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/EDAVisualiser/static/css/main.ae4571ff.css",
-    "main.js": "/EDAVisualiser/static/js/main.3855e511.js",
+    "main.js": "/EDAVisualiser/static/js/main.75fb5f6f.js",
     "index.html": "/EDAVisualiser/index.html",
     "main.ae4571ff.css.map": "/EDAVisualiser/static/css/main.ae4571ff.css.map",
-    "main.3855e511.js.map": "/EDAVisualiser/static/js/main.3855e511.js.map"
+    "main.75fb5f6f.js.map": "/EDAVisualiser/static/js/main.75fb5f6f.js.map"
   },
   "entrypoints": [
     "static/css/main.ae4571ff.css",
-    "static/js/main.3855e511.js"
+    "static/js/main.75fb5f6f.js"
   ]
 }
