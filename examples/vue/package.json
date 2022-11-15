@@ -6,14 +6,14 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "copy:styles": "cp ./node_modules/@asyncapi/EDAVisualiser/styles/default.min.css ./src/assets/edavisualiser.min.css"
+    "copy:styles": "cp ./node_modules/@asyncapi/edavisualiser/styles/default.min.css ./src/assets/edavisualiser.min.css"
   },
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^3.2.13"
   },
   "devDependencies": {
-    "@asyncapi/EDAVisualiser": "0.10.0",
+    "@asyncapi/edavisualiser": "0.10.0",
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",

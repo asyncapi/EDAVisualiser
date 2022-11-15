@@ -1,4 +1,4 @@
-import { SystemView } from '@asyncapi/EDAVisualiser';
+import { SystemView } from '@asyncapi/edavisualiser';
 
 function App() {
   return (
