@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnDestroy, AfterViewInit, } from '@angular/core';
-import StandaloneRenderer from "@asyncapi/EDAVisualiser/browser/standalone";
+import StandaloneRenderer from "@asyncapi/edavisualiser/browser/standalone";
 
 @Component({
   selector: 'app-root',
   template: `
     <div style="width:100vw;height:100vh;" id="asyncapi-doc"></div>
   `,
-  styleUrls: ['../../node_modules/@asyncapi/EDAVisualiser/styles/default.min.css']
+  styleUrls: ['../../node_modules/@asyncapi/edavisualiser/styles/default.min.css']
 }) 
 export class ApplicationViewComponent implements OnDestroy, AfterViewInit {
   constructor(private element: ElementRef) {}

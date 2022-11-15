@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './App';
 
 import './index.css';
-import '@asyncapi/EDAVisualiser/styles/default.css';
+import '@asyncapi/edavisualiser/styles/default.css';
 
 ReactDOM.render(
   <React.StrictMode>

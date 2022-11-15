@@ -1,1 +1,1 @@
-declare module '@asyncapi/EDAVisualiser/browser/standalone';
+declare module '@asyncapi/edavisualiser/browser/standalone';
