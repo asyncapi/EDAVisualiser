@@ -1,3 +1,6 @@
+/**
+ * Generate random color based on a unique hash
+ */
 export default (stringInput: string) => {
   const stringUniqueHash = [...stringInput].reduce((acc, char) => {
     // tslint:disable-next-line

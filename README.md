@@ -3,7 +3,7 @@
 [![Npm latest version](https://img.shields.io/npm/v/@asyncapi/EDAVisualiser)](https://www.npmjs.com/package/@asyncapi/EDAVisualiser)
 [![License](https://img.shields.io/github/license/asyncapi/EDAVisualiser)](https://github.com/asyncapi/EDAVisualiser/blob/master/LICENSE)
 [![last commit](https://img.shields.io/github/last-commit/asyncapi/EDAVisualiser)](https://github.com/asyncapi/EDAVisualiser/commits/master)
-[![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%asyncapi.github.io%2FEDAVisualiser)](https://jonaslagoni.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%asyncapi.github.io%2FEDAVisualiser)](https://asyncapi.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -50,18 +50,18 @@ The library uses a domain-driven approach, meaning we don't assume one or the ot
 
 | Input | Example | Description|
 |:---:|:---:|:---:|
-| [**AsyncAPI**](https://www.asyncapi.com/) | <a href="https://jonaslagoni.github.io/EDAVisualiser/asyncapi">Preview</a>, <a href="https://github.com/asyncapi/EDAVisualiser/blob/main/examples/simple-react/src/SimpleAsyncapi.tsx">code</a> | *Allows you to reuse pre-parsed AsyncAPI documents from the [official AsyncAPI parser](github.com/asyncapi/parser-js), underneath it splits up the AsyncAPI document into the core building blocks. AsyncAPI v2.0 -> v2.5 is supported.* |
-| **Core building blocks** | <a href="https://jonaslagoni.github.io/EDAVisualiser/">Preview</a>, <a href="https://github.com/asyncapi/EDAVisualiser/blob/main/examples/simple-react/src/SimpleApp.tsx">code</a> | *The core building blocks is the domain abstraction for inputs this is what any other input type is converted to.* |
+| [**AsyncAPI**](https://www.asyncapi.com/) | <a href="https://asyncapi.github.io/EDAVisualiser/asyncapi">Preview</a>, <a href="https://github.com/asyncapi/EDAVisualiser/blob/main/examples/simple-react/src/SimpleAsyncapi.tsx">code</a> | *Allows you to reuse pre-parsed AsyncAPI documents from the [official AsyncAPI parser](github.com/asyncapi/parser-js), underneath it splits up the AsyncAPI document into the core building blocks. AsyncAPI v2.0 -> v2.5 is supported.* |
+| **Core building blocks** | <a href="https://asyncapi.github.io/EDAVisualiser/">Preview</a>, <a href="https://github.com/asyncapi/EDAVisualiser/blob/main/examples/simple-react/src/SimpleApp.tsx">code</a> | *The core building blocks is the domain abstraction for inputs this is what any other input type is converted to.* |
 
 
 ## Views
 
-A view could for example be how a ["system" of applications is related](https://jonaslagoni.github.io/EDAVisualiser/social-media), [how a single application relates to others](https://jonaslagoni.github.io/EDAVisualiser/social-media/application/notification_service), only the fantasy sets the limitations, and [feel free to propose new ideas](https://github.com/asyncapi/EDAVisualiser/issues/new)!
+A view could for example be how a ["system" of applications is related](https://asyncapi.github.io/EDAVisualiser/social-media), [how a single application relates to others](https://asyncapi.github.io/EDAVisualiser/social-media/application/notification_service), only the fantasy sets the limitations, and [feel free to propose new ideas](https://github.com/asyncapi/EDAVisualiser/issues/new)!
 
 ### ApplicationFocusView
 Puts a single application in focus as part of a larger system. Used to figure out who is "connected" to the application.
 
-<a href="https://jonaslagoni.github.io/EDAVisualiser/social-media/application/notification_service"><img src="./docs/img/applicationFocusView.png" /></a>
+<a href="https://asyncapi.github.io/EDAVisualiser/social-media/application/notification_service"><img src="./docs/img/applicationFocusView.png" /></a>
 
 #### **Configurations**
 
@@ -82,7 +82,7 @@ These are all the arguments you can use to configure the view.
 ### ApplicationView
 Puts a single application in focus with only it's near connections that are incoming to the application or outgoing from it.
 
-<a href="https://jonaslagoni.github.io/EDAVisualiser/"><img src="./docs/img/applicationView.png" /></a>
+<a href="https://asyncapi.github.io/EDAVisualiser/"><img src="./docs/img/applicationView.png" /></a>
 
 #### **Configurations**
 
@@ -101,7 +101,7 @@ These are all the arguments you can use to configure the view.
 ### SystemView
 Puts the system/collection of applications in focus to figure out how they are all connected.
 
-<a href="https://jonaslagoni.github.io/EDAVisualiser/social-media"><img src="./docs/img/systemView.png" /></a>
+<a href="https://asyncapi.github.io/EDAVisualiser/social-media"><img src="./docs/img/systemView.png" /></a>
 
 #### **Configurations**
 
