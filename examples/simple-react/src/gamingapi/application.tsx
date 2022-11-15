@@ -42,7 +42,7 @@ function Asyncapi() {
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/gamingapi/application/' + name}
+                    href={'EDAVisualiser/gamingapi/' + name}
                   >
                     <button
                       style={{

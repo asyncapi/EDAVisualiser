@@ -5,11 +5,11 @@ export function Menu() {
         <span className="font-bold">Visualiser</span>
       </div>
       <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media" className="font-light capitalize">View system</a></div>
-      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/application/frontend" className="font-light capitalize">View frontend application</a></div>
-      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/application/backend" className="font-light capitalize">View backend application</a></div>
-      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/application/comments_service" className="font-light capitalize">View comments application</a></div>
-      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/application/notification_service" className="font-light capitalize">View notification application</a></div>
-      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/application/public_api" className="font-light capitalize">View public application</a></div>
+      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/frontend" className="font-light capitalize">View frontend application</a></div>
+      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/backend" className="font-light capitalize">View backend application</a></div>
+      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/comments_service" className="font-light capitalize">View comments application</a></div>
+      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/notification_service" className="font-light capitalize">View notification application</a></div>
+      <div style={{padding: "0 30px"}}><a href="/EDAVisualiser/social-media/public_api" className="font-light capitalize">View public application</a></div>
     </div>
   );
 }

@@ -1,0 +1,35 @@
+name: Release GH pages
+
+on:
+  workflow_run:
+    workflows: ["release"]
+    branches: [master]
+    types: 
+      - completed
+
+jobs:
+  github-pages-release:
+    name: Release on GH pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set git to use LF #to once and for all finish neverending fight between Unix and Windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - name: Install dependencies
+        run: cd examples/simple-react && npm install
+      - name: Deploy
+        run: cd examples/simple-react && npm install
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: examples/simple-react
+          branch: gh-pages
