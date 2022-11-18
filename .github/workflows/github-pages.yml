@@ -26,8 +26,6 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
       - name: Install dependencies
         run: cd examples/simple-react && npm install
-      - name: Deploy
-        run: cd examples/simple-react && npm install
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
