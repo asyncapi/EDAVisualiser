@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@asyncapi/EDAVisualiser": "0.10.0",
+    "@asyncapi/edavisualiser": "0.10.0",
     "@angular/animations": "~13.3.0",
     "@angular/common": "~13.3.0",
     "@angular/compiler": "~13.3.0",

@@ -1,6 +1,6 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-![Maintenance score](https://img.shields.io/npms-io/maintenance-score/@asyncapi/EDAVisualiser)
-[![Npm latest version](https://img.shields.io/npm/v/@asyncapi/EDAVisualiser)](https://www.npmjs.com/package/@asyncapi/EDAVisualiser)
+![Maintenance score](https://img.shields.io/npms-io/maintenance-score/@asyncapi/edavisualiser)
+[![Npm latest version](https://img.shields.io/npm/v/@asyncapi/edavisualiser)](https://www.npmjs.com/package/@asyncapi/edavisualiser)
 [![License](https://img.shields.io/github/license/asyncapi/EDAVisualiser)](https://github.com/asyncapi/EDAVisualiser/blob/master/LICENSE)
 [![last commit](https://img.shields.io/github/last-commit/asyncapi/EDAVisualiser)](https://github.com/asyncapi/EDAVisualiser/commits/master)
 [![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%asyncapi.github.io%2FEDAVisualiser)](https://asyncapi.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -42,7 +42,7 @@ It is written in React, however, it also supports the most used frameworks such 
 Run this command to install the visualizer in your project:
 
 ```bash
-npm install @asyncapi/EDAVisualiser
+npm install @asyncapi/edavisualiser
 ```
 
 ## Inputs

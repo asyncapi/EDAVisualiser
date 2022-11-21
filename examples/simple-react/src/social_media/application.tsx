@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menu } from './menu';
 import { useParams } from 'react-router-dom';
-import { ApplicationFocusView } from '@asyncapi/EDAVisualiser';
+import { ApplicationFocusView } from '@asyncapi/edavisualiser';
 import { apps } from './apps';
 import '@asyncapi/parser/dist/bundle';
 
-import '@asyncapi/EDAVisualiser/styles/default.css';
+import '@asyncapi/edavisualiser/styles/default.css';
 
 function Asyncapi() {
   const [externalApplications, setAsyncapiDocuments] = useState<Array<{ parsedDoc: any, name: string }>>([]);
