@@ -43,7 +43,7 @@ It is written in React, however, it also supports the most used frameworks such 
 Run this command to install the visualizer in your project:
 
 ```bash
-npm install @asyncapi/EDAVisualiser
+npm install @asyncapi/edavisualiser
 ```
 
 ## Inputs

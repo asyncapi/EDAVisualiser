@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import StandaloneRenderer from '@asyncapi/EDAVisualiser/browser/standalone'
+import StandaloneRenderer from '@asyncapi/edavisualiser/browser/standalone'
 const props = {
   application: {
     id: "string",

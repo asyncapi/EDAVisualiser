@@ -1,5 +1,5 @@
-import { ApplicationView } from '@asyncapi/EDAVisualiser';
-import '@asyncapi/EDAVisualiser/styles/default.css';
+import { ApplicationView } from '@asyncapi/edavisualiser';
+import '@asyncapi/edavisualiser/styles/default.css';
 
 function App() {
   return (

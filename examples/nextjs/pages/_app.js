@@ -1,4 +1,4 @@
-import '@asyncapi/EDAVisualiser/styles/default.css';
+import '@asyncapi/edavisualiser/styles/default.css';
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
