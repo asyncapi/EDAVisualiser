@@ -1,9 +1,10 @@
+[![AsyncAPI EDAVisualiser](./docs/img/banner.png)](asyncapi.github.io/EDAVisualiser)
+
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-![Maintenance score](https://img.shields.io/npms-io/maintenance-score/@asyncapi/EDAVisualiser)
-[![Npm latest version](https://img.shields.io/npm/v/@asyncapi/EDAVisualiser)](https://www.npmjs.com/package/@asyncapi/EDAVisualiser)
+[![Npm latest version](https://img.shields.io/npm/v/@asyncapi/edavisualiser)](https://www.npmjs.com/package/@asyncapi/EDAVisualiser)
 [![License](https://img.shields.io/github/license/asyncapi/EDAVisualiser)](https://github.com/asyncapi/EDAVisualiser/blob/master/LICENSE)
 [![last commit](https://img.shields.io/github/last-commit/asyncapi/EDAVisualiser)](https://github.com/asyncapi/EDAVisualiser/commits/master)
-[![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%asyncapi.github.io%2FEDAVisualiser)](https://asyncapi.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![Playground](https://img.shields.io/website?label=playground&url=https%3A%2F%2Fasyncapi.github.io%2FEDAVisualiser)](https://asyncapi.github.io/EDAVisualiser) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
