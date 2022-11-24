@@ -36,7 +36,7 @@ function Asyncapi() {
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/social-media/application/' + name}
+                    href={'/EDAVisualiser/social-media/' + name}
                   >
                     <button
                       style={{

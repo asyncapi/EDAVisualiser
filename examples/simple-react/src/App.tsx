@@ -49,13 +49,13 @@ export const App = () => {
           <Route exact path="/gamingapi/">
             <GamingapiSystem />
           </Route>
-          <Route exact path="/gamingapi/application/:application">
+          <Route exact path="/gamingapi/:application">
             <GamingapiApplication />
           </Route>
           <Route exact path="/social-media/">
             <SocialMediaSystem />
           </Route>
-          <Route exact path="/social-media/application/:application">
+          <Route exact path="/social-media/:application">
             <SocialMediaApplication />
           </Route>
         </Switch>
