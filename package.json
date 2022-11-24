@@ -25,7 +25,9 @@
     "bump:lib:version": "cd library && npm --no-git-tag-version --allow-same-version version $VERSION",
     "bump:version": "npm run bump:lib:version",
     "get:name": "cd library && npm run get:name",
-    "get:version": "cd library && npm run get:version"
+    "get:version": "cd library && npm run get:version",
+    "predeploy": "npm run build",
+    "deploy": "cd examples/simple-react && npm run deploy"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^8.0.1",
