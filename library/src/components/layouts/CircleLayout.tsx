@@ -18,8 +18,7 @@ function calculateLayout(
   elements: Node[],
   passedOptions: Partial<CircleLayoutOptions> = defaultOptions,
 ): FlowElement[] {
-  // const options = { ...defaultOptions, ...passedOptions };
-
+  
   const eachDegree = 360 / elements.length;
   let nextDegree = 0;
   const r = elements.length * 100;
