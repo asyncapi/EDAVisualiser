@@ -38,6 +38,15 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "ShashwatPS",
+      "name": "Shashwat Pratap Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/114943221?v=4",
+      "profile": "https://github.com/ShashwatPS",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -46,5 +55,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": false,
-  "commitConvention": "none"
+  "commitConvention": "none",
+  "commitType": "docs"
 }
