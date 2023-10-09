@@ -65,6 +65,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "AnishKacham",
+      "name": "Anish",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79566582?v=4",
+      "profile": "http://anish-v1.vercel.app",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
