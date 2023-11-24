@@ -17,7 +17,6 @@
     "lint:fix": "prettier --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}' && tslint -c ./tslint.json --project tsconfig.base.json --format verbose --fix",
     "conflict-check": "tslint-config-prettier-check ./tslint.json",
     "markdownlint": "markdownlint **/*.md",
-    "release": "semantic-release",
     "postinstall": "npm run bootstrap",
     "prepublishOnly": "npm run build",
     "gen-readme-toc": "markdown-toc -i README.md",
@@ -30,20 +29,14 @@
     "deploy": "cd examples/simple-react && npm run deploy"
   },
   "devDependencies": {
-    "@semantic-release/commit-analyzer": "^8.0.1",
-    "@semantic-release/github": "^7.2.3",
-    "@semantic-release/npm": "^7.0.3",
-    "@semantic-release/release-notes-generator": "^9.0.2",
     "@types/jest": "^29.2.2",
     "concurrently": "^6.0.1",
-    "conventional-changelog-conventionalcommits": "^4.4.0",
     "husky": "^2.4.1",
     "lerna": "^3.22.1",
     "lint-staged": "^8.2.1",
     "markdown-toc": "^1.2.0",
     "markdownlint-cli": "^0.32.2",
     "prettier": "^1.18.2",
-    "semantic-release": "^17.4.3",
     "tslib": "^1.10.0",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
@@ -68,34 +61,7 @@
       "pre-commit": "lint-staged"
     }
   },
-  "release": {
-    "branches": [
-      "master",
-      {
-        "name": "next",
-        "prerelease": true
-      }
-    ],
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "conventionalcommits"
-        }
-      ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "conventionalcommits"
-        }
-      ],
-      [
-        "@semantic-release/npm",
-        {
-          "pkgRoot": "library"
-        }
-      ],
-      "@semantic-release/github"
-    ]
+  "dependencies": {
+    "jest": "^29.7.0"
   }
 }
