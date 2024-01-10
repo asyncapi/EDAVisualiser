@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { FlowElement } from 'react-flow-renderer';
-import { AsyncAPIDocument } from '@asyncapi/parser';
+import { AsyncAPIDocumentInterface } from '@asyncapi/parser';
 
 export type InternalProps = {
   internal?: {
@@ -43,8 +43,8 @@ export interface ApplicationServerData {
 }
 
 export interface AsyncapiApplicationData {
-  document: AsyncAPIDocument;
-  topExtended?: ReactElement;
+  document: AsyncAPIDocumentInterface;
+  topExtended?: JSX.Element;
 }
 
 export interface ApplicationNodeData {

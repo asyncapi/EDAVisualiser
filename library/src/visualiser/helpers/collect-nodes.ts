@@ -149,14 +149,14 @@ export function collectSystemNodes(
     return [];
   };
   const createOutgoingNodeFn = (data: OutgoingNodeData) => {
-    const appId = data.forApplication || '';
+    const appId = data.forApplication ?? '';
     const uniqueConnectionId = getUniqueConnectionId(data);
     !outgoingConnections[appId] && (outgoingConnections[appId] = []);
     outgoingConnections[appId].push(uniqueConnectionId);
     return [];
   };
   const createIncomingNodeFn = (data: IncomingNodeData) => {
-    const appId = data.forApplication || '';
+    const appId = data.forApplication ?? '';
     const uniqueConnectionId = getUniqueConnectionId(data);
     !incomingConnections[uniqueConnectionId] &&
       (incomingConnections[uniqueConnectionId] = []);
@@ -223,48 +223,54 @@ function collectAsyncAPINodes(
   const nodes: Array<FlowElement> = [];
   const documentTitle = document.info().title();
 
-  for (const [channelPath, channel] of Object.entries(document.channels())) {
-    const channelId = `${documentTitle}${channelPath}`;
-    if (channel.hasPublish()) {
-      const messages: MessageData[] = channel
-        .publish()
-        .messages()
-        .map(message => {
-          return { title: message.name() || 'Unknown' };
-        });
+  for (const channel of document.channels().all()) {
+    const channelId = channel.id();
+    let uniqueChannelId = `${documentTitle}_${channelId}`;
 
-      nodes.push(
-        ...createIncomingNodeFn(
-          {
-            id: `incoming_${channelId}`,
-            channel: channelPath,
-            description: channel.description() || 'No description',
-            messages,
-            forApplication: documentTitle,
-          },
-          edgeType,
-        ),
-      );
-    } else if (channel.hasSubscribe()) {
-      const messages: MessageData[] = channel
-        .subscribe()
-        .messages()
-        .map(message => {
-          return { title: message.name() || 'Unknown' };
-        });
+    for (const operation of channel.operations().all()) {
+      const operationId = operation.id();
+      if (operation.isReceive()) {
+        uniqueChannelId = `incoming_${uniqueChannelId}_${operationId}`;
+        const messages: MessageData[] = channel
+          .messages()
+          .all()
+          .map(message => {
+            return { title: message.name() ?? 'Unknown' };
+          });
+        nodes.push(
+          ...createIncomingNodeFn(
+            {
+              id: uniqueChannelId,
+              channel: channel.address() ?? '',
+              description: channel.description() ?? 'No description',
+              messages,
+              forApplication: documentTitle,
+            },
+            edgeType,
+          ),
+        );
+      } else if (operation.isSend()) {
+        uniqueChannelId = `outgoing_${uniqueChannelId}_${operationId}`;
+        const messages: MessageData[] = channel
+          .messages()
+          .all()
+          .map(message => {
+            return { title: message.name() ?? 'Unknown' };
+          });
 
-      nodes.push(
-        ...createOutgoingNodeFn(
-          {
-            id: `outgoing_${channelId}`,
-            channel: channelPath,
-            description: channel.description() || 'No description',
-            messages,
-            forApplication: documentTitle,
-          },
-          edgeType,
-        ),
-      );
+        nodes.push(
+          ...createOutgoingNodeFn(
+            {
+              id: uniqueChannelId,
+              channel: channel.address() ?? '',
+              description: channel.description() ?? 'No description',
+              messages,
+              forApplication: documentTitle,
+            },
+            edgeType,
+          ),
+        );
+      }
     }
   }
 
@@ -285,30 +291,35 @@ export function createAsyncAPIApplication(
   let license;
   if (documentLicense) {
     license = {
-      name: documentLicense.name() || 'Not defined',
-      url: documentLicense.url() || 'Not defined',
+      name: documentLicense.name() ?? 'Not defined',
+      url: documentLicense.url() ?? 'Not defined',
     };
   }
 
-  const servers: ApplicationServerData[] = Object.entries(
-    document.servers(),
-  ).map(([serverId, server]) => {
-    return {
-      description: server.description() || 'No description',
-      name: serverId,
-      protocol: server.protocol() || 'No protocol',
-      protocolVersion: server.protocolVersion() || undefined,
-      url: server.url(),
-    };
-  });
+  const servers: ApplicationServerData[] = document
+    .servers()
+    .all()
+    .map(server => {
+      return {
+        description: server.description() ?? 'No description',
+        name: server.id(),
+        protocol: server.protocol() ?? 'No protocol',
+        protocolVersion: server.protocolVersion() ?? undefined,
+        url: server.url(),
+      };
+    });
 
   const applicationNodeData: ApplicationNodeData = {
     id: document.info().title(),
     title: document.info().title(),
     version: document.info().version(),
-    description: document.info().description() || 'No description',
-    externalDocs: document.externalDocs()?.url() || undefined,
-    defaultContentType: document.defaultContentType() || undefined,
+    description: document.info().description() ?? 'No description',
+    externalDocs:
+      document
+        .info()
+        .externalDocs()
+        ?.url() ?? undefined,
+    defaultContentType: document.defaultContentType() ?? undefined,
     license,
     servers,
     topExtended,
@@ -351,7 +362,7 @@ export function createIncomingNode(
   data: IncomingNodeData,
   edgeType: EdgeType,
 ): Array<FlowElement> {
-  const appId = data.forApplication || '';
+  const appId = data.forApplication ?? '';
   const incomingNode: Node = {
     id: data.id,
     type: 'incomingNode',
@@ -374,7 +385,7 @@ export function createExternalIncomingNode(
   data: IncomingNodeData,
   source: string,
 ): Array<FlowElement> {
-  const appId = data.forApplication || '';
+  const appId = data.forApplication ?? '';
   return [
     {
       id: `incoming-${appId}-${data.id}`,
@@ -390,7 +401,7 @@ export function createOutgoingNode(
   data: OutgoingNodeData,
   edgeType: EdgeType,
 ): Array<FlowElement> {
-  const appId = data.forApplication || '';
+  const appId = data.forApplication ?? '';
   const outgoingNode: Node = {
     id: data.id,
     type: 'outgoingNode',
@@ -413,7 +424,7 @@ export function createExternalOutgoingNode(
   data: OutgoingNodeData,
   target: string,
 ): Array<FlowElement> {
-  const appId = data.forApplication || '';
+  const appId = data.forApplication ?? '';
   return [
     {
       id: `outgoing-${appId}-${data.id}`,

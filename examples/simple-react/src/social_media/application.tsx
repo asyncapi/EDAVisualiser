@@ -3,9 +3,8 @@ import { Menu } from './menu';
 import { useParams } from 'react-router-dom';
 import { ApplicationFocusView } from '@asyncapi/edavisualiser';
 import { apps } from './apps';
-import '@asyncapi/parser/dist/bundle';
-
 import '@asyncapi/edavisualiser/styles/default.css';
+const AsyncapiParser = require('@asyncapi/parser/browser');
 
 function Asyncapi() {
   const [externalApplications, setAsyncapiDocuments] = useState<Array<{ parsedDoc: any, name: string }>>([]);
@@ -15,14 +14,14 @@ function Asyncapi() {
   useEffect(() => {
     const fetchData = async () => {
       const data = [];
-      const parser = (window as any)['AsyncAPIParser'];
+      const parser = new AsyncapiParser.Parser();
       for (const [name, asyncapi] of Object.entries(apps)) {
         if (application === name) {
-          const parsedDoc = await parser.parse(asyncapi);
-          setFocusedApplication({ parsedDoc, name });
+          const {document} = await parser.parse(asyncapi);
+          setFocusedApplication({ parsedDoc: document, name });
         } else {
-          const parsedDoc = await parser.parse(asyncapi);
-          data.push({ parsedDoc, name });
+          const {document} = await parser.parse(asyncapi);
+          data.push({ parsedDoc: document, name });
         }
       }
       setAsyncapiDocuments(data);
