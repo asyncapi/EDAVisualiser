@@ -6,8 +6,6 @@ import GamingapiSystem from './gamingapi/System';
 import GamingapiApplication from './gamingapi/application';
 import SocialMediaSystem from './social_media/System';
 import SocialMediaApplication from './social_media/application';
-import EdaLearn from './edalearn/System';
-import EdaLearnApplication from './edalearn/application';
 
 export const App = () => {
   return (
@@ -59,12 +57,6 @@ export const App = () => {
           </Route>
           <Route exact path="/social-media/:application">
             <SocialMediaApplication />
-          </Route>
-          <Route exact path="/edalearn/">
-            <EdaLearn />
-          </Route>
-          <Route exact path="/edalearn/:application">
-            <EdaLearnApplication />
           </Route>
         </Switch>
       </div>
