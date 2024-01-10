@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ApplicationView } from '@asyncapi/edavisualiser';
 import '@asyncapi/edavisualiser/styles/default.css';
-import '@asyncapi/parser/dist/bundle';
+const AsyncapiParser = require('@asyncapi/parser/browser');
 
 const asyncAPIDocument = `
 asyncapi: '2.4.0'
@@ -222,8 +222,11 @@ function Asyncapi() {
   const [document, setDocument] = useState(undefined);
 
   useEffect(() => {
-    const parser = (window as any)['AsyncAPIParser'];
-    const fetchData = async () => setDocument(await parser.parse(asyncAPIDocument));
+    const parser = new AsyncapiParser.Parser();
+    const fetchData = async () => {
+      const {document} = await parser.parse(asyncAPIDocument)
+      setDocument(document);
+    }
     fetchData().catch(console.error);
   }, []);
 

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@asyncapi/parser": "^1.15.0",
-    "@asyncapi/edavisualiser": "^0.15.0",
+    "@asyncapi/parser": "^3.0.2",
+    "@asyncapi/edavisualiser": "^1.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^5.3.0",
@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "npm link ../../library/node_modules/react-dom ../../library/node_modules/react ../../library/",
+    "postinstall": "npm link ../../library/node_modules/react-dom ../../library/node_modules/react ../../library/ @asyncapi/parser",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
