@@ -7,6 +7,7 @@ export * from './components/nodes/Outgoing';
 export * from './components/nodes/AsyncAPIApplication';
 export * from './components/layouts';
 export * from './types';
+export * from './helpers/AsyncAPIParserHelper';
 
 import {
   ApplicationView,

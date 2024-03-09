@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SystemView, fromURL } from '@asyncapi/edavisualiser';
+import { SystemView, fromURL} from '@asyncapi/edavisualiser';
 import { apps } from './apps';
 import '@asyncapi/edavisualiser/styles/default.css';
 const AsyncapiParser = require('@asyncapi/parser/browser');
@@ -9,12 +9,16 @@ function Asyncapi() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const parser = new AsyncapiParser.Parser();
       const data = [];
+      const parser = new AsyncapiParser.Parser({
+        ruleset: { core:false, recommended:false }
+        });
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
         const result = fromURL(parser, asyncapiUrl);
-        const {document} = await result.parse();
-        data.push({ parsedDoc: document, name });
+        const {document, diagnostics} = await result.parse();
+        console.log(diagnostics)
+        if(document)
+          data.push({ parsedDoc: document, name });
       }
       setAsyncapiDocuments(data);
     };
@@ -34,7 +38,7 @@ function Asyncapi() {
                 <div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'/EDAVisualiser/gamingapi/' + name}
+                    href={'/EDAVisualiser/edalearn/' + name}
                   >
                     <button
                       style={{

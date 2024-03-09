@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ApplicationFocusView } from '@asyncapi/edavisualiser';
+import { ApplicationFocusView, fromURL } from '@asyncapi/edavisualiser';
 import { apps } from './apps';
 import '@asyncapi/edavisualiser/styles/default.css';
 const AsyncapiParser = require('@asyncapi/parser/browser');
@@ -15,16 +15,14 @@ function Asyncapi() {
       const data = [];
       const parser = new AsyncapiParser.Parser();
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
+        const result = fromURL(parser, asyncapiUrl);
+        const {document} = await result.parse();
         if (application === name) {
-          const result = AsyncapiParser.fromURL(parser, asyncapiUrl);
-          const {document} = await result.parse();
           if(document === undefined) {
             return;
           }
           setFocusedApplication({ parsedDoc: document, name });
         } else {
-          const result = AsyncapiParser.fromURL(parser, asyncapiUrl);
-          const {document} = await result.parse();
           data.push({ parsedDoc: document, name });
         }
       }
