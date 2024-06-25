@@ -1,11 +1,13 @@
 import {
-  Parser,
   ParseOptions,
   ParseOutput,
   ValidateOptions,
   Input,
   Diagnostic,
+  AsyncAPIDocumentInterface,
 } from '@asyncapi/parser';
+import AsyncAPIParser from '@asyncapi/parser/browser';
+import { AsyncapiApplicationData } from '../types';
 
 /**
  * Functionality taken from the AsyncAPI parser
@@ -17,7 +19,7 @@ export interface FromResult {
 }
 
 export function fromURL(
-  parser: Parser,
+  parser: any,
   source: string,
   options?: RequestInit,
 ): FromResult {
@@ -25,7 +27,6 @@ export function fromURL(
     const fetchFn = await getFetch();
     return (await fetchFn(source, options as any)).text();
   }
-
   return {
     async parse(options: ParseOptions = {}) {
       const schema = await fetchUrl();
@@ -36,6 +37,31 @@ export function fromURL(
       return parser.validate(schema, { ...options, source });
     },
   };
+}
+export async function getDocument({
+  document,
+  documentUrl,
+  rawDocument,
+}: AsyncapiApplicationData): Promise<AsyncAPIDocumentInterface> {
+  if (document) {
+    return Promise.resolve(document);
+  }
+  let output: ParseOutput | undefined;
+  const parserOptions = { ruleset: {} };
+  const parser = new (AsyncAPIParser as any).Parser(parserOptions);
+  if (documentUrl) {
+    output = await fromURL(parser, documentUrl).parse();
+  }
+  if (rawDocument) {
+    output = await parser.parse(rawDocument);
+  }
+  if (!output) {
+    return Promise.reject('Could not resolve document');
+  }
+  if (output.document === undefined) {
+    return Promise.reject(output.diagnostics);
+  }
+  return Promise.resolve(output.document);
 }
 
 let __fetchFn: typeof fetch | undefined;

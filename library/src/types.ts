@@ -43,7 +43,9 @@ export interface ApplicationServerData {
 }
 
 export interface AsyncapiApplicationData {
-  document: AsyncAPIDocumentInterface;
+  document?: AsyncAPIDocumentInterface;
+  rawDocument?: string;
+  documentUrl?: string;
   topExtended?: JSX.Element;
 }
 

@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { SystemView, fromURL } from '@asyncapi/edavisualiser';
 import { apps } from './apps';
 import '@asyncapi/edavisualiser/styles/default.css';
-const AsyncapiParser = require('@asyncapi/parser/browser');
+import Parser from '@asyncapi/parser/browser';
 
 function Asyncapi() {
   const [asyncapiDocuments, setAsyncapiDocuments] = useState<Array<{ parsedDoc: any, name: string }>>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const parser = new AsyncapiParser.Parser();
+      const parser = new Parser();
       const data = [];
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
         const result = fromURL(parser, asyncapiUrl);

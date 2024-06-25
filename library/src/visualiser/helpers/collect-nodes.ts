@@ -1,19 +1,28 @@
 import { getUniqueConnectionId } from './relation-finder';
-import { Node, Edge, FlowElement, ArrowHeadType } from 'react-flow-renderer';
+import { FlowElement, ArrowHeadType } from 'react-flow-renderer';
 import {
   ApplicationViewData,
   ApplicationFocusViewData,
   ApplicationNodeData,
-  AsyncapiApplicationData,
   IncomingNodeData,
   OutgoingNodeData,
-  ApplicationServerData,
   MessageData,
   SystemViewData,
   EdgeType,
 } from '../../types';
+import { getDocument } from '../../helpers/AsyncAPIParserHelper';
+import { AsyncAPIDocumentInterface } from '@asyncapi/parser';
+import {
+  createApplicationNode,
+  createAsyncAPIApplication,
+  createExternalApplicationNode,
+  createExternalIncomingNode,
+  createExternalOutgoingNode,
+  createIncomingNode,
+  createOutgoingNode,
+} from './node-factory';
 
-export function collectApplicationNodes(
+export async function collectApplicationNodes(
   {
     asyncapi,
     application,
@@ -21,11 +30,12 @@ export function collectApplicationNodes(
     outgoingOperations,
   }: ApplicationViewData,
   edgeType: EdgeType = 'smoothstep',
-): Array<FlowElement> {
+): Promise<Array<FlowElement>> {
   const nodes: Array<FlowElement> = [];
 
   if (asyncapi) {
-    nodes.push(...collectAsyncAPINodes(asyncapi, { edgeType }));
+    const document = await getDocument(asyncapi);
+    nodes.push(...collectAsyncAPINodes(document, { edgeType }));
   } else if (application) {
     nodes.push(...createApplicationNode(application));
   }
@@ -44,7 +54,7 @@ export function collectApplicationNodes(
   return nodes;
 }
 
-export function collectApplicationFocusNodes(
+export async function collectApplicationFocusNodes(
   {
     asyncapi,
     application,
@@ -53,12 +63,13 @@ export function collectApplicationFocusNodes(
     outgoingOperations,
   }: ApplicationFocusViewData,
   edgeType: EdgeType = 'smoothstep',
-): Array<FlowElement> {
+): Promise<Array<FlowElement>> {
   const nodes: Array<FlowElement> = [];
   const leadApplicationIncomingChannels: string[] = [];
   const leadApplicationOutgoingChannels: string[] = [];
 
   if (asyncapi) {
+    const document = await getDocument(asyncapi);
     const createIncomingNodeFn = (data: IncomingNodeData) => {
       leadApplicationIncomingChannels.push(data.id);
       return createIncomingNode(data, edgeType);
@@ -69,7 +80,7 @@ export function collectApplicationFocusNodes(
     };
 
     nodes.push(
-      ...collectAsyncAPINodes(asyncapi, {
+      ...collectAsyncAPINodes(document, {
         createApplicationNodeFn: createApplicationNode,
         createIncomingNodeFn,
         createOutgoingNodeFn,
@@ -110,10 +121,11 @@ export function collectApplicationFocusNodes(
       return [];
     };
 
-    external.forEach(externalApp => {
+    external.forEach(async externalApp => {
       if (externalApp.asyncapi) {
+        const document = await getDocument(externalApp.asyncapi);
         nodes.push(
-          ...collectAsyncAPINodes(externalApp.asyncapi, {
+          ...collectAsyncAPINodes(document, {
             createApplicationNodeFn: createExternalApplicationNode,
             createIncomingNodeFn,
             createOutgoingNodeFn,
@@ -136,10 +148,10 @@ export function collectApplicationFocusNodes(
   return nodes;
 }
 
-export function collectSystemNodes(
+export async function collectSystemNodes(
   { applications = [] }: SystemViewData,
   edgeType: EdgeType = 'floating',
-): Array<FlowElement> {
+): Promise<Array<FlowElement>> {
   const nodes: Array<FlowElement> = [];
   const outgoingConnections: { [key: string]: string[] } = {};
   const incomingConnections: { [key: string]: string[] } = {};
@@ -164,9 +176,10 @@ export function collectSystemNodes(
     return [];
   };
 
-  applications.forEach(app => {
+  for (const app of applications) {
     if (app.asyncapi) {
-      collectAsyncAPINodes(app.asyncapi, {
+      const document = await getDocument(app.asyncapi);
+      collectAsyncAPINodes(document, {
         createApplicationNodeFn,
         createOutgoingNodeFn,
         createIncomingNodeFn,
@@ -182,7 +195,7 @@ export function collectSystemNodes(
     if (app.outgoingOperations) {
       app.outgoingOperations.forEach(createIncomingNodeFn);
     }
-  });
+  }
 
   for (const [appId, uniqueChannels] of Object.entries(outgoingConnections)) {
     for (const uniqueChannel of uniqueChannels) {
@@ -207,17 +220,19 @@ export function collectSystemNodes(
 }
 
 function collectAsyncAPINodes(
-  { document, topExtended }: AsyncapiApplicationData,
+  document: AsyncAPIDocumentInterface,
   {
     createApplicationNodeFn = createApplicationNode,
     createIncomingNodeFn = createIncomingNode,
     createOutgoingNodeFn = createOutgoingNode,
     edgeType = 'floating',
+    topExtended,
   }: {
     createApplicationNodeFn?: typeof createApplicationNode;
     createIncomingNodeFn?: typeof createIncomingNode;
     createOutgoingNodeFn?: typeof createOutgoingNode;
     edgeType?: EdgeType;
+    topExtended?: JSX.Element;
   },
 ): Array<FlowElement> {
   const nodes: Array<FlowElement> = [];
@@ -275,163 +290,11 @@ function collectAsyncAPINodes(
   }
 
   nodes.unshift(
-    ...createAsyncAPIApplication(
-      { document, topExtended },
+    ...createAsyncAPIApplication({
+      document,
+      topExtended,
       createApplicationNodeFn,
-    ),
+    }),
   );
   return nodes;
-}
-
-export function createAsyncAPIApplication(
-  { document, topExtended }: AsyncapiApplicationData,
-  createApplicationNodeFn: typeof createApplicationNode = createApplicationNode,
-): Array<FlowElement> {
-  const documentLicense = document.info().license();
-  let license;
-  if (documentLicense) {
-    license = {
-      name: documentLicense.name() ?? 'Not defined',
-      url: documentLicense.url() ?? 'Not defined',
-    };
-  }
-
-  const servers: ApplicationServerData[] = document
-    .servers()
-    .all()
-    .map(server => {
-      return {
-        description: server.description() ?? 'No description',
-        name: server.id(),
-        protocol: server.protocol() ?? 'No protocol',
-        protocolVersion: server.protocolVersion() ?? undefined,
-        url: server.url(),
-      };
-    });
-
-  const applicationNodeData: ApplicationNodeData = {
-    id: document.info().title(),
-    title: document.info().title(),
-    version: document.info().version(),
-    description: document.info().description() ?? 'No description',
-    externalDocs:
-      document
-        .info()
-        .externalDocs()
-        ?.url() ?? undefined,
-    defaultContentType: document.defaultContentType() ?? undefined,
-    license,
-    servers,
-    topExtended,
-  };
-  return createApplicationNodeFn(applicationNodeData);
-}
-
-export function createApplicationNode(
-  data: ApplicationNodeData,
-): Array<FlowElement> {
-  return [
-    {
-      id: data.id,
-      type: 'applicationNode',
-      data: { ...data, nodeWidth: 700, nodeHeight: 300 },
-      position: { x: 0, y: 0 },
-    },
-  ] as Node[];
-}
-
-export function createExternalApplicationNode(
-  data: ApplicationNodeData,
-): Array<FlowElement> {
-  const externalOutgoing = {
-    id: `outgoing_external_${data.id}`,
-    type: 'externalApplicationNode',
-    data: { ...data, nodeWidth: 700, nodeHeight: 300, side: 'outgoing' },
-    position: { x: 0, y: 0 },
-  };
-  const externalIncoming = {
-    id: `incoming_external_${data.id}`,
-    type: 'externalApplicationNode',
-    data: { ...data, nodeWidth: 700, nodeHeight: 300, side: 'incoming' },
-    position: { x: 0, y: 0 },
-  };
-  return [externalOutgoing, externalIncoming];
-}
-
-export function createIncomingNode(
-  data: IncomingNodeData,
-  edgeType: EdgeType,
-): Array<FlowElement> {
-  const appId = data.forApplication ?? '';
-  const incomingNode: Node = {
-    id: data.id,
-    type: 'incomingNode',
-    data: { ...data, nodeWidth: 650, nodeHeight: 380 },
-    position: { x: 0, y: 0 },
-  };
-  const connectionEdge: Edge = {
-    id: `incoming-${appId}-${data.id}`,
-    ...(edgeType !== 'animated'
-      ? { type: edgeType, animated: false }
-      : { animated: true }),
-    style: { stroke: '#7ee3be', strokeWidth: 4 },
-    target: appId,
-    source: data.id,
-  };
-  return [incomingNode, connectionEdge];
-}
-
-export function createExternalIncomingNode(
-  data: IncomingNodeData,
-  source: string,
-): Array<FlowElement> {
-  const appId = data.forApplication ?? '';
-  return [
-    {
-      id: `incoming-${appId}-${data.id}`,
-      type: 'default',
-      style: { stroke: '#7ee3be', strokeWidth: 4 },
-      target: `incoming_external_${appId}`,
-      source,
-    },
-  ] as Edge[];
-}
-
-export function createOutgoingNode(
-  data: OutgoingNodeData,
-  edgeType: EdgeType,
-): Array<FlowElement> {
-  const appId = data.forApplication ?? '';
-  const outgoingNode: Node = {
-    id: data.id,
-    type: 'outgoingNode',
-    data: { ...data, nodeWidth: 650, nodeHeight: 380 },
-    position: { x: 0, y: 0 },
-  };
-  const connectionEdge: Edge = {
-    id: `outgoing-${appId}-${data.id}`,
-    ...(edgeType !== 'animated'
-      ? { type: edgeType, animated: false }
-      : { animated: true }),
-    style: { stroke: 'orange', strokeWidth: 4 },
-    source: appId,
-    target: data.id,
-  };
-  return [outgoingNode, connectionEdge];
-}
-
-export function createExternalOutgoingNode(
-  data: OutgoingNodeData,
-  target: string,
-): Array<FlowElement> {
-  const appId = data.forApplication ?? '';
-  return [
-    {
-      id: `outgoing-${appId}-${data.id}`,
-      type: 'default',
-      style: { stroke: 'orange', strokeWidth: 4 },
-      source: `outgoing_external_${appId}`,
-      target,
-    },
-  ] as Edge[];
 }

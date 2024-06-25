@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ApplicationView } from '@asyncapi/edavisualiser';
 import '@asyncapi/edavisualiser/styles/default.css';
-const AsyncapiParser = require('@asyncapi/parser/browser');
+import Parser from '@asyncapi/parser/browser';
+
 
 const asyncAPIDocument = `
 asyncapi: '2.4.0'
@@ -219,10 +220,10 @@ components:
 `;
 
 function Asyncapi() {
-  const [document, setDocument] = useState(undefined);
+  const [document, setDocument] = useState<any | undefined>(undefined);
 
   useEffect(() => {
-    const parser = new AsyncapiParser.Parser();
+    const parser = new Parser();
     const fetchData = async () => {
       const {document} = await parser.parse(asyncAPIDocument)
       setDocument(document);
@@ -233,7 +234,7 @@ function Asyncapi() {
   let node;
   if (document !== undefined) {
     node = (
-      <ApplicationView asyncapi={{ document }} edgeType={'animated'} />
+      <ApplicationView asyncapi={{ document: document }} edgeType={'animated'} />
     );
   } else {
     node = <h1>Wait...</h1>;
