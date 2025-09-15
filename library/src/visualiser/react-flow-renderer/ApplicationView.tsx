@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -46,15 +46,23 @@ export const ApplicationView: React.FunctionComponent<ApplicationViewProps> = ({
   edgeType = 'smoothstep',
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const elements = collectApplicationNodes(
-    {
-      asyncapi,
-      application,
-      incomingOperations,
-      outgoingOperations,
-    },
-    edgeType,
-  );
+  const [elements, setElements] = useState<any[]>([]);
+  useEffect(() => {
+    async function collectNodes() {
+      const collectedElements = await collectApplicationNodes(
+        {
+          asyncapi,
+          application,
+          incomingOperations,
+          outgoingOperations,
+        },
+        edgeType,
+      );
+      setElements(collectedElements);
+    }
+
+    collectNodes();
+  }, []);
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);

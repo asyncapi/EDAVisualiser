@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -44,7 +44,18 @@ export const SystemView: React.FunctionComponent<SystemViewProps> = ({
   edgeType = 'floating',
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const elements = collectSystemNodes({ applications }, edgeType);
+  const [elements, setElements] = useState<any[]>([]);
+  useEffect(() => {
+    async function collectNodes() {
+      const collectedElements = await collectSystemNodes(
+        { applications },
+        edgeType,
+      );
+      setElements(collectedElements);
+    }
+
+    collectNodes();
+  }, []);
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);
