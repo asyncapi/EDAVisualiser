@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -48,16 +48,24 @@ export const ApplicationFocusView: React.FunctionComponent<ApplicationFocusViewP
   edgeType = 'smoothstep',
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const elements = collectApplicationFocusNodes(
-    {
-      asyncapi,
-      application,
-      external,
-      incomingOperations,
-      outgoingOperations,
-    },
-    edgeType,
-  );
+  const [elements, setElements] = useState<any[]>([]);
+  useEffect(() => {
+    async function collectNodes() {
+      const collectedElements = await collectApplicationFocusNodes(
+        {
+          asyncapi,
+          application,
+          external,
+          incomingOperations,
+          outgoingOperations,
+        },
+        edgeType,
+      );
+      setElements(collectedElements);
+    }
+
+    collectNodes();
+  }, []);
 
   const handleLoaded = (reactFlowInstance: any) => {
     setLoaded(true);

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ApplicationFocusView } from '@asyncapi/edavisualiser';
-import '@asyncapi/parser/dist/bundle';
+import { ApplicationFocusView, fromURL } from '@asyncapi/edavisualiser';
 import { apps } from './apps';
 import '@asyncapi/edavisualiser/styles/default.css';
+const AsyncapiParser = require('@asyncapi/parser/browser');
 
 function Asyncapi() {
   const [externalApplications, setAsyncapiDocuments] = useState<Array<{ parsedDoc: any, name: string }>>([]);
@@ -13,14 +13,17 @@ function Asyncapi() {
   useEffect(() => {
     const fetchData = async () => {
       const data = [];
-      const parser = (window as any)['AsyncAPIParser'];
+      const parser = new AsyncapiParser.Parser();
       for (const [name, asyncapiUrl] of Object.entries(apps)) {
+        const result = fromURL(parser, asyncapiUrl);
+        const {document} = await result.parse();
         if (application === name) {
-          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
-          setFocusedApplication({ parsedDoc, name });
+          if(document === undefined) {
+            return;
+          }
+          setFocusedApplication({ parsedDoc: document, name });
         } else {
-          const parsedDoc = await parser.parseFromUrl(asyncapiUrl);
-          data.push({ parsedDoc, name });
+          data.push({ parsedDoc: document, name });
         }
       }
       setAsyncapiDocuments(data);
@@ -38,11 +41,10 @@ function Asyncapi() {
           return {
             asyncapi: {
               document: parsedDoc,
-              topExtended: (
-                <div className="flex justify-between mb-4">
+              topExtended: (<div className="flex justify-between mb-4">
                   <a
                     className="leading-6 text-gray-900 uppercase text-xs font-light"
-                    href={'EDAVisualiser/gamingapi/' + name}
+                    href={'/EDAVisualiser/gamingapi/' + name}
                   >
                     <button
                       style={{
@@ -53,8 +55,7 @@ function Asyncapi() {
                       Focus application
                     </button>
                   </a>
-                </div>
-              )
+                </div>)
             }
           }
         })}
