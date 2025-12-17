@@ -33,8 +33,8 @@
     "build:prod": "npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:standalone && npm run build:types && npm run build:styles",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:umd": "cross-env BUILD_MODE=umd webpack --colors",
-    "build:standalone": "cross-env BUILD_MODE=standalone webpack --colors",
+    "build:umd": "cross-env BUILD_MODE=umd webpack",
+    "build:standalone": "cross-env BUILD_MODE=standalone webpack",
     "build:types": "tsc -p tsconfig.types.json",
     "build:styles": "npm run build:styles:dev && npm run build:styles:prod",
     "build:styles:dev": "cross-env NODE_ENV=production postcss src/styles/default.css -o styles/default.css --verbose",
@@ -55,7 +55,8 @@
     "highlight.js": "^11.5.1",
     "marked": "^4.0.16",
     "react-flow-renderer": "9.6.9",
-    "tailwindcss": "^2.1.1"
+    "tailwindcss": "^2.1.1",
+    "@smoya/multi-parser": "^5.0.1"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^5.9.0",
@@ -67,6 +68,7 @@
     "@types/jsdom": "^16.2.14",
     "@types/marked": "^4.0.1",
     "@types/node": "^12.7.2",
+    "@types/node-fetch": "^2.6.11",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.8.0",
     "@types/react-test-renderer": "^17.0.1",
